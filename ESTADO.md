@@ -42,14 +42,136 @@
 - [x] 0 Entorno
 - [x] 1 Conexión + sondeo
 - [x] 2 Proyecto (tema base Dawn creado en Shopify)
-- [ ] 3 Brief en un mensaje (mensaje 2 — en curso)
-- [ ] 3b Fotos IA
+- [x] 3 Brief en un mensaje (mensaje 2 enviado y respondido con material real)
+- [ ] 3b Fotos IA (pendiente: falta clave OpenAI y/o el archivo de la foto real)
 - [ ] 4 Construcción
 - [ ] 5 Producto y páginas
 - [ ] 6 Publicación
 
-## Decisiones de diseño
-(se rellena tras la respuesta del usuario al mensaje 2)
+## Brief de marca (recibido del usuario tras el mensaje 2)
+
+El usuario mandó una foto real del producto (pegada en el chat, sin ruta de
+archivo accesible — pendiente de que la reenvíe como adjunto si se quiere usar
+como referencia para generar fotos con IA) y 5 documentos PDF de estrategia de
+marketing ya cerrada (Positioning, Big Idea, Offer Strategy, Messaging
+Framework, Competitor Analysis) para un lanzador automático de pelotas de
+gama alta. Es un caso EXCEPCIONALMENTE completo: la estrategia de marca ya
+está hecha por profesionales. La tienda debe ejecutar fielmente este brief,
+no inventar uno propio.
+
+### Producto real (visto en foto)
+Carcasa trapezoidal, verde bosque oscuro mate en la mitad superior, panel
+frontal blanco/crudo en la mitad inferior, separados por una fina línea
+dorada/latón. Puerto circular de lanzamiento con aro de luz blanca. Wordmark
+"OffLeash" en blanco sobre el verde. Pelotas de tenis amarillo-verdosas de
+serie. Estética premium-industrial, nada de plástico barato de juguete.
+
+### Posicionamiento (no negociable — usar literal en el copy)
+- Categoría: **"herramienta de sustitución atlética"** — **NUNCA "juguete"**.
+- Beneficiario del mensaje: **el dueño** (alivio/permiso), no el perro
+  (diversión). Se vende "un dueño absuelto", no "un perro cansado".
+- Frase de posicionamiento: "No es un juguete que lanza la pelota por ti. Es
+  la herramienta que por fin cansa a tu perro de verdad —a prueba de babas,
+  sin castrar su juego— para que tú puedas sentarte, sin culpa, en tu propia
+  casa."
+- Arquetipo de marca: el Sabio Aliado (mitad autoridad biológica, mitad
+  amigo cómplice que pasó por lo mismo).
+
+### Big Idea / narrativa
+- Idea rectora: **"La Trampa del Agotamiento"** — cansas a tu perro con lo
+  único que lo hace más incansable (correr con él activa su instinto de caza
+  y lo satura de cortisol; lo convierte en un súper-atleta imparable).
+- Tagline: **"El botón de apagado, sin culpa."**
+- Gran promesa: "Cánsalo de verdad en 20 minutos al día — sin mover un
+  brazo, sin culpa, sin crear un monstruo."
+- Arco narrativo maestro (usar en el orden de la portada):
+  1. Reconocimiento (escena del sofá/súper-atleta)
+  2. Revelación / absolución (no es culpa tuya, es biología — cortisol/prey
+     drive)
+  3. Mecanismo (el antídoto: bucle de persecución asíncrono, a prueba de
+     babas, silencioso, sin límite)
+  4. Estado después / permiso (te sientas en tu sofá, lo ves saciado de
+     verdad, sin culpa)
+  5. Oferta (stack + garantía)
+
+### Los 4 pilares de mensaje (rotar, cada sección apoya en ≥1)
+1. **Absolución** (emocional dominante): "No es tu culpa; nadie te dijo que
+   correr más lo empeora."
+2. **Permiso** (deseo): "Por fin puedes sentarte en tu propio sofá."
+3. **Mecanismo/Prueba** (racional): ruedas de inercia texturizadas que
+   tragan la baba, motor de grado industrial.
+4. **Anti-villano** (diferenciación): "No es otro lanzador que se atasca,
+   asusta o se apaga a los 15 min."
+Secuencia canónica: Absolución → Permiso → Mecanismo/Prueba → Anti-villano
+→ Oferta.
+
+### Prueba ancla (héroe visual)
+"A prueba de babas": demo visual de una pelota empapada de lodo/saliva
+procesada sin fallo. Debe ser LA imagen/sección más memorable de la tienda.
+Garantía asociada: **"El Reto de la Baba"** (90 días) — si el motor se
+atasca una vez, devolución íntegra y se queda con las pelotas.
+
+### Oferta / precio
+- Producto core ~$99. Stack de valor con pack de pelotas anti-babas ($29),
+  protocolo "Auto-Recarga en 7 Días" ($49), guía "La Trampa del Agotamiento"
+  ($39), adaptador CA + batería ($25), garantía extendida "A Prueba de Vida
+  Canina" ($59). Valor total del stack ~$300 → precio hoy ~$89–99 (ancla
+  ≥3:1).
+- Ancla de precio: comparar contra guardería canina (~$700/mes), no contra
+  otros lanzadores.
+- Garantías de refuerzo: tranquilidad canina (ruido), agotamiento a 30 días
+  (resultado), durabilidad 12–24 meses.
+- Honestidad radical (diferencial de confianza, usar tal cual): las razas de
+  pastoreo pueden plantarse frente al cañón; auto-recargar requiere un breve
+  entrenamiento (protocolo de 7 días).
+
+### Léxico
+- ✅ Usar: descanso, culpa, por fin, permiso, sin destrozarte, botón de
+  apagado, de verdad cansado, recuperar (tu sofá/noches/casa), a prueba de
+  babas, súper-atleta imparable, para ti, herramienta.
+- ⛔ Prohibido: "haz más con tu perro", "aventura", "juguete", montañas o
+  frisbees al atardecer, "tu perro se lo merece", listas de features como
+  gancho principal, "diversión sin fin".
+- Tono: cómplice, absolutorio, honesto sobre límites, con autoridad
+  biológica al desmontar la culpa. Escenas domésticas reales (sofá, Zoom,
+  alfombra) — NUNCA imaginería aspiracional-atlética.
+
+### Competencia (para la sección anti-villano / comparativa, sin nombrarlos
+de forma agresiva salvo comparativa explícita si se pide)
+- PetSafe (~$150-170): modo-reposo forzado a 30 min que "castra" el juego,
+  sensor que asusta. Grieta a explotar: "sin modo-reposo que apaga la
+  diversión".
+- iFetch (~$115-140): pelotas mini, vende bola anti-babas aparte (admite que
+  no traga baba). Grieta: "sin comprar una bola aparte".
+- Clones $40-90 (AFP, Franklin, genéricos): "basura de plástico", se atascan
+  en minutos. Usarlos como villano de contraste, no competir en precio.
+
+### Estilo visual derivado (decisión de diseño ya tomada — no volver a
+preguntar)
+- Paleta: verde bosque oscuro mate (dominante, ~#1B4332), blanco roto/crudo
+  cálido (paneles y fondo, NO blanco clínico), dorado/latón apagado como
+  acento de línea (~#C6A15B). Sin verde lima ni colores infantiles.
+- Tipografía: sans-serif de titulares gruesa y **seria/confiada** (no
+  redondeada ni juguetona) — refleja "herramienta industrial", no "juguete".
+  Cuerpo de texto sans limpio.
+- Fotografía: escenas domésticas reales (sofá, salón, alfombra, Zoom de
+  fondo) — nunca postales de aventura al atardecer. El producto siempre
+  fotografiado con seriedad de electrodoméstico premium, no de juguete.
+- Estructura de portada (arco de la Big Idea, ver arriba): 1) hero de
+  reconocimiento/disonancia ("Si corres con tu perro para cansarlo, estás
+  empeorándolo") 2) revelación/absolución con autoridad biológica 3)
+  mecanismo + demo anti-babas (sección héroe) 4) anti-villano/comparativa
+  honesta 5) permiso/testimonios (estado después) 6) oferta con stack de
+  valor + Reto de la Baba 7) honestidad radical / FAQ 8) CTA final.
+
+### Pendiente del usuario (una sola cosa, no bloqueante)
+- La foto que pegó en el chat no tiene archivo accesible para mí — si quiere
+  que genere más fotos (ambiente, detalle, macro anti-babas) fieles a la
+  suya, que la reenvíe como archivo adjunto. Mientras tanto, construyo la
+  estructura y el copy completos; los huecos de imagen quedan como
+  `image_picker` editables.
+- Clave de OpenAI: aún no la dio. Sigue en pie la oferta de generarlas si la
+  manda; si no, construyo con huecos editables.
 
 ## Secciones creadas
 (se rellena en la fase 4)
