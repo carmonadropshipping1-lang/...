@@ -45,8 +45,70 @@
 - [x] 3 Brief en un mensaje (mensaje 2 enviado y respondido con material real)
 - [ ] 3b Fotos IA (pendiente: falta clave OpenAI y/o el archivo de la foto real)
 - [x] 4 Construcción (portada completa subida al tema)
-- [ ] 5 Producto y páginas
+- [x] 5 Producto y páginas
 - [ ] 6 Publicación
+
+## Fase 5 — producto, header/footer, legales
+
+### Producto (vía Admin API, sin pedir nada al usuario)
+- Título reescrito: "OffLeash™ — Lanzador Automático de Pelotas a Prueba de Babas".
+- Descripción del catálogo reescrita en HTML con el mensaje de posicionamiento.
+- SEO title/description propios.
+- Handle limpiado: `offleash-automatic-ball-launcher` (antes tenía el símbolo
+  ™, con redirección automática desde el handle viejo).
+- Categoría (`productType`): "Herramienta de sustitución atlética" (nunca
+  "juguete", tal y como pide el brief).
+- Precio de la variante puesto a 99,00 € (coincide con la oferta de la
+  portada).
+- `templateSuffix` asignado a `"ol"` → la página de producto ya usa
+  `templates/product.ol.json` en cuanto el tema se publique; con
+  `?preview_theme_id=` ya se ve ahora.
+- **Pendiente de decisión del usuario, NO la tomé yo**: el inventario está a
+  0 unidades (heredado del producto vacío), así que el botón de compra
+  saldrá como "Agotado por ahora" hasta que el usuario indique cuántas
+  unidades tiene — es una decisión de negocio real, no algo que deba
+  inventar.
+
+### Página de producto (`sections/ol-producto.liquid` + `templates/product.ol.json`)
+Galería con miniaturas clicables, precio dinámico, formulario de compra real
+(`{% form 'product' %}`), selector de variantes con JS (actualiza id, precio
+y estado agotado — funciona con 1 variante o varias), fila de confianza
+editable, insignia de garantía, intro + características + "qué incluye" +
+descripción del catálogo. Debajo se reutilizan secciones de la portada:
+mecanismo (anti-babas), comparativa honesta, oferta con stack, testimonios y
+FAQ — cumple el checklist completo de la fase 5.
+
+### Header y footer (edité los JSON de configuración, no toqué el Liquid de Dawn)
+- `sections/header-group.json`: barra de anuncio con "🛡 El Reto de la Baba:
+  90 días o te devolvemos todo" sobre fondo verde oscuro (scheme-3).
+- `sections/footer-group.json`: footer en verde oscuro (scheme-3) con bloque
+  de marca (tagline + descripción + redes) y menú "Legal".
+- `config/settings_data.json`: `brand_headline`/`brand_description` globales
+  rellenados con el tagline y posicionamiento — así el bloque de marca del
+  footer de Dawn ya sale con contenido real.
+- No toqué `sections/header.liquid` ni `sections/footer.liquid` (el Liquid
+  de Dawn): no hizo falta, todo se resolvió con configuración + esquemas de
+  color ya alineados a la marca en la fase 4. El logo sigue siendo el nombre
+  de la tienda en texto porque no hay archivo de logo — pendiente si el
+  usuario quiere subir uno.
+
+### Favicon
+`assets/ol-favicon.svg` (aro dorado + punto crema sobre verde bosque,
+monograma simple) enlazado en `layout/theme.liquid` como respaldo cuando
+`settings.favicon` está vacío (que es el caso ahora). Si el usuario sube un
+favicon PNG propio desde el editor, ese tiene prioridad automáticamente.
+
+### Páginas legales
+- Creadas por Admin API (`pageCreate`), publicadas y enlazadas ya en el menú
+  "footer": **Aviso Legal** (`/pages/aviso-legal`) y **Política de Cookies**
+  (`/pages/politica-de-cookies`). Contenido base con placeholders `[...]`
+  para NIF/nombre legal/email — avisar al usuario de que lo revise o lo pase
+  a su gestoría antes de operar en serio (regla de la skill).
+- **Pendiente, es la única tarea que de verdad requiere el panel del
+  usuario** (Shopify no deja crear las 4 políticas nativas por la Admin API
+  pública): Configuración → Políticas → "Crear a partir de plantilla" en
+  Privacidad, Términos, Devoluciones y Envíos. El footer de Dawn ya las
+  enlaza automáticamente en cuanto existan (`show_policy` ya está activado).
 
 ## Vista previa (fase 4 completada)
 
