@@ -1,0 +1,115 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: var(--ol-verde);
+  }
+  #shopify-section-{{ section.id }} .ol-mec-titulo { font-size: {{ section.settings.tamano_titulo }}px; }
+{% endstyle %}
+
+<section class="ol-section ol-mecanismo ol-on-verde">
+  <div class="ol-container">
+    <div class="ol-mec-intro ol-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="ol-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="ol-h2 ol-mec-titulo">{{ section.settings.titulo }}</h2>
+      <p class="ol-body ol-mec-cuerpo">{{ section.settings.cuerpo | newline_to_br }}</p>
+    </div>
+
+    <div class="ol-mec-comparador-wrap ol-reveal ol-reveal-2">
+      <div class="ol-comparador ol-mec-comparador" role="img" aria-label="{{ section.settings.antes_alt | escape }}">
+        {%- if section.settings.imagen_antes != blank -%}
+          <img src="{{ section.settings.imagen_antes | image_url: width: 1600 }}" alt="{{ section.settings.antes_alt | escape }}" loading="lazy">
+        {%- else -%}
+          <div class="ol-placeholder" style="aspect-ratio:16/9;"><span>Pelota empapada de barro</span></div>
+        {%- endif -%}
+        <div class="ol-comparador-despues">
+          {%- if section.settings.imagen_despues != blank -%}
+            <img src="{{ section.settings.imagen_despues | image_url: width: 1600 }}" alt="{{ section.settings.despues_alt | escape }}" loading="lazy">
+          {%- else -%}
+            <div class="ol-placeholder" style="aspect-ratio:16/9; background: linear-gradient(135deg, var(--ol-dorado), var(--ol-dorado-claro)); color: var(--ol-verde-oscuro);"><span>Procesada sin fallo</span></div>
+          {%- endif -%}
+        </div>
+        <div class="ol-comparador-linea"></div>
+        <div class="ol-comparador-asa"></div>
+      </div>
+      <p class="ol-mec-comparador-nota">{{ section.settings.comparador_nota }}</p>
+    </div>
+
+    <div class="ol-grid ol-cols-3 ol-mec-pruebas">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'prueba' -%}
+          <div class="ol-mec-prueba ol-reveal ol-reveal-{{ forloop.index | at_most: 4 }}" {{ block.shopify_attributes }}>
+            <div class="ol-mec-prueba-icono">{{ block.settings.icono }}</div>
+            <h3 class="ol-h3 ol-mec-prueba-titulo">{{ block.settings.titulo }}</h3>
+            <p class="ol-body ol-mec-prueba-texto">{{ block.settings.texto }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.badge_texto != blank -%}
+      <div class="ol-mec-badge-wrap ol-reveal">
+        <span class="ol-badge">{{ section.settings.badge_texto }}</span>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-mec-intro { max-width: 680px; margin: 0 auto 48px; text-align: center; }
+  #shopify-section-{{ section.id }} .ol-mec-titulo { margin: 12px 0 18px; }
+  #shopify-section-{{ section.id }} .ol-mec-comparador-wrap { max-width: 920px; margin: 0 auto 64px; }
+  #shopify-section-{{ section.id }} .ol-mec-comparador { aspect-ratio: 16/9; box-shadow: 0 24px 60px -20px rgba(0,0,0,0.5); }
+  #shopify-section-{{ section.id }} .ol-mec-comparador-nota { text-align: center; margin-top: 16px; font-size: 14px; color: var(--ol-dorado-claro); }
+  #shopify-section-{{ section.id }} .ol-mec-prueba { text-align: center; padding: 8px; }
+  #shopify-section-{{ section.id }} .ol-mec-prueba-icono { font-size: 34px; margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .ol-mec-prueba-titulo { margin-bottom: 10px; font-size: 20px; }
+  #shopify-section-{{ section.id }} .ol-mec-badge-wrap { text-align: center; margin-top: 48px; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Mecanismo (anti-babas)",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto pequeño superior", "default": "EL MECANISMO" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "A prueba de babas." },
+    { "type": "textarea", "id": "cuerpo", "label": "Texto", "default": "Ruedas de inercia duales, texturizadas y motorizadas por corriente continua. Traga la pelota más empapada de saliva y barro, silenciosamente y sin límite." },
+    { "type": "header", "content": "Comparador antes / después" },
+    { "type": "image_picker", "id": "imagen_antes", "label": "Imagen (antes)" },
+    { "type": "text", "id": "antes_alt", "label": "Descripción de la imagen (antes)", "default": "Pelota cubierta de barro y saliva" },
+    { "type": "image_picker", "id": "imagen_despues", "label": "Imagen (después)" },
+    { "type": "text", "id": "despues_alt", "label": "Descripción de la imagen (después)", "default": "Pelota procesada sin fallo por el lanzador" },
+    { "type": "text", "id": "comparador_nota", "label": "Nota bajo el comparador", "default": "Desliza para ver el mecanismo en acción — arrastra el círculo." },
+    { "type": "header", "content": "Insignia inferior" },
+    { "type": "text", "id": "badge_texto", "label": "Texto de la insignia", "default": "🛡 El Reto de la Baba — 90 días" },
+    { "type": "header", "content": "Espaciado" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "tamano_titulo", "label": "Tamaño del título (px)", "min": 28, "max": 64, "step": 2, "unit": "px", "default": 44 }
+  ],
+  "blocks": [
+    {
+      "type": "prueba",
+      "name": "Prueba",
+      "settings": [
+        { "type": "text", "id": "icono", "label": "Icono (emoji)", "default": "⚙️" },
+        { "type": "text", "id": "titulo", "label": "Título", "default": "Resistencia industrial" },
+        { "type": "textarea", "id": "texto", "label": "Texto", "default": "Motores de corriente continua de servicio sostenido. No motorcitos de juguete." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mecanismo (anti-babas)",
+      "blocks": [
+        { "type": "prueba", "settings": { "icono": "💧", "titulo": "Ruedas anti-babas", "texto": "Ruedas de inercia duales texturizadas: tracción implacable sobre la pelota más empapada." } },
+        { "type": "prueba", "settings": { "icono": "⚙️", "titulo": "Resistencia industrial", "texto": "Motores de corriente continua de servicio sostenido. No motorcitos de juguete." } },
+        { "type": "prueba", "settings": { "icono": "🔇", "titulo": "No castra el juego", "texto": "Sin modo-reposo forzado que enfurece a tu perro. Funcionamiento silencioso que no lo asusta." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

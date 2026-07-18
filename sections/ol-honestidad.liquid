@@ -1,0 +1,86 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+{{ 'ol-scripts.js' | asset_url | script_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.color_fondo }};
+  }
+  #shopify-section-{{ section.id }} .ol-hon-titulo { font-size: {{ section.settings.tamano_titulo }}px; }
+{% endstyle %}
+
+<section class="ol-section ol-honestidad">
+  <div class="ol-container ol-hon-wrap">
+    <div class="ol-hon-intro ol-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="ol-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="ol-h2 ol-hon-titulo">{{ section.settings.titulo }}</h2>
+      {%- if section.settings.cuerpo != blank -%}<p class="ol-body">{{ section.settings.cuerpo }}</p>{%- endif -%}
+    </div>
+
+    <div class="ol-hon-lista ol-reveal ol-reveal-1">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'pregunta' -%}
+          <div class="ol-faq-item" data-abierto="false" {{ block.shopify_attributes }}>
+            <button type="button" class="ol-faq-pregunta" aria-expanded="false">
+              <span>{{ block.settings.pregunta }}</span>
+              <span class="ol-faq-icono">+</span>
+            </button>
+            <div class="ol-faq-respuesta">
+              <div class="ol-faq-respuesta-interior">
+                <p class="ol-body">{{ block.settings.respuesta | newline_to_br }}</p>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-hon-intro { max-width: 680px; margin: 0 auto 40px; text-align: center; }
+  #shopify-section-{{ section.id }} .ol-hon-titulo { margin: 12px 0 14px; }
+  #shopify-section-{{ section.id }} .ol-hon-lista { max-width: 760px; margin: 0 auto; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Honestidad (FAQ)",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Color de fondo", "default": "#FFFFFF" },
+    { "type": "text", "id": "eyebrow", "label": "Texto pequeño superior", "default": "HONESTIDAD RADICAL" },
+    { "type": "text", "id": "titulo", "label": "Título", "default": "Lo que no te cuentan otras marcas." },
+    { "type": "textarea", "id": "cuerpo", "label": "Texto", "default": "Preferimos decirte la verdad antes de que compres, no después." },
+    { "type": "header", "content": "Espaciado" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "tamano_titulo", "label": "Tamaño del título (px)", "min": 24, "max": 56, "step": 2, "unit": "px", "default": 38 }
+  ],
+  "blocks": [
+    {
+      "type": "pregunta",
+      "name": "Pregunta",
+      "settings": [
+        { "type": "text", "id": "pregunta", "label": "Pregunta", "default": "¿Se atascará con la baba de mi perro?" },
+        { "type": "textarea", "id": "respuesta", "label": "Respuesta", "default": "Es la pregunta que más nos hacen porque mató a los lanzadores que probaste antes. Por eso existe el Reto de la Baba: si el motor se atasca una sola vez en 90 días, te devolvemos todo." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Honestidad (FAQ)",
+      "blocks": [
+        { "type": "pregunta", "settings": { "pregunta": "¿Se atascará con la baba de mi perro?", "respuesta": "Es la objeción número uno, y la entendemos: mató a tus lanzadores anteriores. Por eso existe el Reto de la Baba — si el motor se atasca una sola vez en 90 días, te devolvemos cada céntimo y te quedas con las pelotas." } },
+        { "type": "pregunta", "settings": { "pregunta": "¿Se romperá en unas semanas?", "respuesta": "Usa motores de corriente continua de servicio sostenido, no motorcitos de juguete. Además incluye garantía extendida de 12–24 meses. No es una novedad frágil desechable — es una herramienta que compras una vez." } },
+        { "type": "pregunta", "settings": { "pregunta": "¿Va a asustar a mi perro el ruido?", "respuesta": "Funciona en silencio, sin el tono ni el sensor audible que reportan muchos dueños con otras marcas. Si aun así a tu perro le incomoda, tienes garantía de tranquilidad canina: devolución completa." } },
+        { "type": "pregunta", "settings": { "pregunta": "¿Mi perro aprenderá a recargarlo solo?", "respuesta": "Con honestidad: requiere un breve entrenamiento, no es magia instantánea. Por eso incluimos el Protocolo Auto-Recarga en 7 Días, un vídeo guiado paso a paso." } },
+        { "type": "pregunta", "settings": { "pregunta": "Mi perro es de pastoreo, ¿se plantará frente al lanzador?", "respuesta": "Puede pasar — algunas razas de pastoreo tienden a plantarse frente al cañón por instinto. No prometemos magia: te explicamos el work-around exacto en la guía incluida." } },
+        { "type": "pregunta", "settings": { "pregunta": "Ya tiré dinero en otro lanzador que falló. ¿Por qué confiar ahora?", "respuesta": "No pagas si falla. Es así de simple: toda la inversión del riesgo es nuestra, no tuya." } },
+        { "type": "pregunta", "settings": { "pregunta": "¿No es un poco de pereza usar una máquina en vez de jugar yo?", "respuesta": "No es pereza, es biología: el ejercicio físico contigo activa su instinto de caza y lo satura de cortisol, haciéndolo más incansable. Externalizar el esfuerzo a una máquina asíncrona es el protocolo correcto, no un atajo." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

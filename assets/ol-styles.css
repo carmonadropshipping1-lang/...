@@ -1,0 +1,263 @@
+/* OffLeash — hoja de estilo propia. Prefijo ol- para todo lo nuestro. */
+
+:root {
+  --ol-verde: #1b4332;
+  --ol-verde-oscuro: #0f2a1f;
+  --ol-crema: #faf7f0;
+  --ol-crema-2: #f1ebdd;
+  --ol-blanco: #ffffff;
+  --ol-dorado: #c6a15b;
+  --ol-dorado-claro: #e3cd9a;
+  --ol-texto: #1f2420;
+  --ol-texto-suave: #4a5049;
+  --ol-texto-sobre-verde: #faf7f0;
+  --ol-linea: rgba(27, 67, 50, 0.14);
+  --ol-fuente: var(--font-heading-family, 'Assistant', sans-serif);
+  --ol-fuente-cuerpo: var(--font-body-family, 'Assistant', sans-serif);
+  --ol-radio: 4px;
+  --ol-margen: 24px;
+  --ol-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ol-sombra: 0 12px 32px -8px rgba(15, 42, 31, 0.25);
+}
+
+/* ---------- reset de espaciado (ROOT PADDING FIX) ---------- */
+.ol-section { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+/* franja blanca entre header y primera sección */
+.section-header { margin-bottom: 0 !important; }
+
+.ol-section {
+  font-family: var(--ol-fuente-cuerpo);
+  color: var(--ol-texto);
+  overflow-x: clip;
+  position: relative;
+}
+
+.ol-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--ol-margen);
+}
+
+@media screen and (max-width: 989px) {
+  .ol-container { padding: 0 20px; }
+}
+
+.ol-eyebrow {
+  font-family: var(--ol-fuente-cuerpo);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12.5px;
+  color: var(--ol-dorado);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.ol-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  display: inline-block;
+}
+
+.ol-h1, .ol-h2, .ol-h3 {
+  font-family: var(--ol-fuente);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.ol-h1 { font-weight: 800; }
+
+.ol-body {
+  font-family: var(--ol-fuente-cuerpo);
+  line-height: 1.55;
+  color: var(--ol-texto-suave);
+  margin: 0;
+}
+
+.ol-on-verde { color: var(--ol-texto-sobre-verde); }
+.ol-on-verde .ol-body { color: rgba(250, 247, 240, 0.82); }
+.ol-on-verde .ol-eyebrow { color: var(--ol-dorado-claro); }
+
+/* ---------- botones ---------- */
+.ol-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--ol-fuente-cuerpo);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 16px 30px;
+  border-radius: var(--ol-radio);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: transform 0.25s var(--ol-ease), box-shadow 0.25s var(--ol-ease), background-color 0.25s var(--ol-ease);
+  white-space: nowrap;
+}
+.ol-btn:hover { transform: translateY(-2px); }
+.ol-btn-primario {
+  background: var(--ol-verde);
+  color: var(--ol-crema);
+}
+.ol-btn-primario:hover { background: var(--ol-verde-oscuro); box-shadow: var(--ol-sombra); }
+.ol-btn-dorado {
+  background: var(--ol-dorado);
+  color: var(--ol-verde-oscuro);
+}
+.ol-btn-dorado:hover { background: var(--ol-dorado-claro); box-shadow: var(--ol-sombra); }
+.ol-btn-fantasma {
+  background: transparent;
+  border-color: currentColor;
+  color: inherit;
+}
+.ol-btn-fantasma:hover { background: rgba(0,0,0,0.05); }
+.ol-on-verde .ol-btn-fantasma:hover { background: rgba(255,255,255,0.1); }
+
+/* ---------- reveal on scroll ---------- */
+.ol-reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  transition: opacity 0.8s var(--ol-ease), transform 0.8s var(--ol-ease);
+}
+.ol-reveal.ol-visible { opacity: 1; transform: none; }
+.ol-reveal-1 { transition-delay: 0.05s; }
+.ol-reveal-2 { transition-delay: 0.15s; }
+.ol-reveal-3 { transition-delay: 0.25s; }
+.ol-reveal-4 { transition-delay: 0.35s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ol-reveal { opacity: 1; transform: none; transition: none; }
+  .ol-btn:hover { transform: none; }
+}
+
+/* ---------- tarjetas ---------- */
+.ol-card {
+  background: var(--ol-blanco);
+  border: 1px solid var(--ol-linea);
+  border-radius: var(--ol-radio);
+  transition: transform 0.35s var(--ol-ease), box-shadow 0.35s var(--ol-ease);
+}
+.ol-card:hover { transform: translateY(-4px); box-shadow: var(--ol-sombra); }
+
+/* ---------- grid utilidades ---------- */
+.ol-grid { display: grid; gap: 28px; }
+.ol-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.ol-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.ol-cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media screen and (max-width: 989px) {
+  .ol-cols-3, .ol-cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media screen and (max-width: 599px) {
+  .ol-cols-2, .ol-cols-3, .ol-cols-4 { grid-template-columns: 1fr; }
+}
+
+/* ---------- marquesina (carrusel de comparativa/logos) ---------- */
+.ol-marquesina-wrap { overflow-x: clip; overflow-y: visible; }
+.ol-marquesina-track {
+  display: flex;
+  width: max-content;
+  animation: ol-marquee linear infinite;
+}
+@keyframes ol-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ol-marquesina-track { animation: none; }
+}
+
+/* ---------- cifras animadas ---------- */
+.ol-cifra { font-variant-numeric: tabular-nums; }
+
+/* ---------- comparador antes/después (slider) ---------- */
+.ol-comparador {
+  position: relative;
+  overflow: clip;
+  border-radius: var(--ol-radio);
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: pan-y;
+}
+.ol-comparador img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; pointer-events: none; }
+.ol-comparador-despues { position: absolute; inset: 0; overflow: hidden; }
+.ol-comparador-linea {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: var(--ol-crema);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+}
+.ol-comparador-asa {
+  position: absolute;
+  top: 50%;
+  width: 46px; height: 46px;
+  background: var(--ol-crema);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--ol-sombra);
+}
+.ol-comparador-asa::before {
+  content: "↔";
+  color: var(--ol-verde);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* ---------- FAQ acordeón ---------- */
+.ol-faq-item { border-bottom: 1px solid var(--ol-linea); }
+.ol-faq-pregunta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 22px 0;
+  cursor: pointer;
+  font-family: var(--ol-fuente);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ol-texto);
+}
+.ol-faq-icono { flex-shrink: 0; transition: transform 0.3s var(--ol-ease); font-size: 22px; color: var(--ol-dorado); }
+.ol-faq-item[data-abierto="true"] .ol-faq-icono { transform: rotate(45deg); }
+.ol-faq-respuesta {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s var(--ol-ease);
+}
+.ol-faq-respuesta-interior { padding-bottom: 22px; }
+
+/* ---------- badges de prueba/garantía ---------- */
+.ol-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(198, 161, 91, 0.14);
+  color: var(--ol-verde);
+  border: 1px solid rgba(198, 161, 91, 0.4);
+}
+
+/* ---------- hover con inclinación sutil ---------- */
+.ol-tilt { transition: transform 0.4s var(--ol-ease); }
+.ol-tilt:hover { transform: perspective(800px) rotateX(1.5deg) rotateY(-1.5deg) translateY(-3px); }
+
+/* ---------- placeholder visual (cuando no hay imagen) ---------- */
+.ol-placeholder {
+  background: linear-gradient(135deg, var(--ol-verde) 0%, var(--ol-verde-oscuro) 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(250,247,240,0.35);
+}
