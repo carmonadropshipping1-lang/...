@@ -3,12 +3,14 @@
     "ol-hero": {
       "type": "ol-hero",
       "settings": {
-        "eyebrow": "HERRAMIENTA DE SUSTITUCIÓN ATLÉTICA",
-        "titulo": "Si corres con tu perro para cansarlo, estás empeorándolo.",
-        "cuerpo": "Te explico por qué en 60 segundos — y cómo cansarlo de verdad en 20 minutos al día, sin mover un brazo.",
-        "boton_1_texto": "Descubre por qué",
-        "boton_2_texto": "Ver el producto",
-        "boton_2_enlace": "/products/offleash-automatic-ball-launcher"
+        "badge_texto": "For dogs that never quit",
+        "linea_1": "Stop throwing.",
+        "linea_2": "Start relaxing.",
+        "linea_3": "Tire them out, automatically.",
+        "subtitulo": "DrySpin™ is the first drool-proof ball launcher engineered for dogs that never get tired.",
+        "linea_certificacion": "🛡 Engineered technology — lab-tested for real backyard abuse.",
+        "boton_texto": "Meet DrySpin™",
+        "boton_enlace": "#ol-shop"
       }
     },
     "ol-revelacion": {

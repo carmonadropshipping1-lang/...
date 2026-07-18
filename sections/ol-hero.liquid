@@ -5,96 +5,96 @@
   #shopify-section-{{ section.id }} {
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
-    background: {{ section.settings.color_fondo }};
   }
-  #shopify-section-{{ section.id }} .ol-hero-titulo {
+  #shopify-section-{{ section.id }} .ol-hero-linea {
     font-size: {{ section.settings.tamano_titulo }}px;
-  }
-  #shopify-section-{{ section.id }} .ol-hero-cuerpo {
-    font-size: {{ section.settings.tamano_cuerpo }}px;
   }
 {% endstyle %}
 
-<section class="ol-section ol-hero {% if section.settings.tema_oscuro %}ol-on-verde{% endif %}">
-  <div class="ol-container ol-hero-grid">
-    <div class="ol-hero-texto ol-reveal">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="ol-eyebrow">{{ section.settings.eyebrow }}</p>
+<section class="ol-section ol-hero ol-on-verde">
+  <div class="ol-hero-fondo">
+    {%- if section.settings.imagen != blank -%}
+      <img src="{{ section.settings.imagen | image_url: width: 2400 }}"
+           alt="{{ section.settings.imagen.alt | escape }}"
+           loading="eager" fetchpriority="high" class="ol-hero-fondo-img">
+    {%- else -%}
+      <div class="ol-placeholder ol-hero-fondo-img" style="position:absolute; inset:0;"><span>OffLeash</span></div>
+    {%- endif -%}
+    <div class="ol-hero-degradado"></div>
+  </div>
+
+  <div class="ol-container ol-hero-panel-wrap">
+    <div class="ol-hero-panel ol-reveal">
+      {%- if section.settings.badge_texto != blank -%}
+        <span class="ol-hero-badge">{{ section.settings.badge_texto }}</span>
       {%- endif -%}
-      <h1 class="ol-h1 ol-hero-titulo">{{ section.settings.titulo }}</h1>
-      {%- if section.settings.cuerpo != blank -%}
-        <p class="ol-body ol-hero-cuerpo">{{ section.settings.cuerpo | newline_to_br }}</p>
+      <h1 class="ol-h1 ol-hero-titulo">
+        {%- if section.settings.linea_1 != blank -%}<span class="ol-hero-linea">{{ section.settings.linea_1 }}</span>{%- endif -%}
+        {%- if section.settings.linea_2 != blank -%}<span class="ol-hero-linea">{{ section.settings.linea_2 }}</span>{%- endif -%}
+        {%- if section.settings.linea_3 != blank -%}<span class="ol-hero-linea">{{ section.settings.linea_3 }}</span>{%- endif -%}
+      </h1>
+      {%- if section.settings.subtitulo != blank -%}
+        <p class="ol-body ol-hero-subtitulo">{{ section.settings.subtitulo }}</p>
       {%- endif -%}
-      <div class="ol-hero-botones">
-        {%- if section.settings.boton_1_texto != blank -%}
-          <a href="{{ section.settings.boton_1_enlace | default: '#' }}" class="ol-btn ol-btn-primario">{{ section.settings.boton_1_texto }}</a>
-        {%- endif -%}
-        {%- if section.settings.boton_2_texto != blank -%}
-          <a href="{{ section.settings.boton_2_enlace | default: '#' }}" class="ol-btn ol-btn-fantasma">{{ section.settings.boton_2_texto }}</a>
-        {%- endif -%}
-      </div>
-    </div>
-    <div class="ol-hero-media ol-reveal ol-reveal-2">
-      {%- if section.settings.imagen != blank -%}
-        <img src="{{ section.settings.imagen | image_url: width: 1600 }}"
-             alt="{{ section.settings.imagen.alt | default: section.settings.titulo | escape }}"
-             loading="eager" fetchpriority="high" width="{{ section.settings.imagen.width }}" height="{{ section.settings.imagen.height }}">
-      {%- else -%}
-        <div class="ol-placeholder ol-hero-placeholder">
-          <span>OffLeash</span>
-        </div>
+      {%- if section.settings.linea_certificacion != blank -%}
+        <p class="ol-hero-cert">{{ section.settings.linea_certificacion }}</p>
+      {%- endif -%}
+      {%- if section.settings.boton_texto != blank -%}
+        <a href="{{ section.settings.boton_enlace | default: '#ol-shop' }}" class="ol-btn ol-btn-dorado ol-hero-boton">{{ section.settings.boton_texto }}</a>
       {%- endif -%}
     </div>
   </div>
 </section>
 
 {% style %}
-  #shopify-section-{{ section.id }} .ol-hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    align-items: center;
-    gap: 56px;
-    min-height: 560px;
+  #shopify-section-{{ section.id }} { position: relative; overflow: clip; min-height: 620px; display: flex; align-items: center; }
+  #shopify-section-{{ section.id }} .ol-hero-fondo { position: absolute; inset: 0; z-index: 0; }
+  #shopify-section-{{ section.id }} .ol-hero-fondo-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .ol-hero-degradado {
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg, rgba(15,42,31,0.92) 0%, rgba(15,42,31,0.78) 34%, rgba(15,42,31,0.25) 62%, rgba(15,42,31,0.05) 100%);
   }
-  #shopify-section-{{ section.id }} .ol-hero-titulo { margin-bottom: 22px; }
-  #shopify-section-{{ section.id }} .ol-hero-cuerpo { max-width: 46ch; margin-bottom: 34px; }
-  #shopify-section-{{ section.id }} .ol-hero-botones { display: flex; gap: 16px; flex-wrap: wrap; }
-  #shopify-section-{{ section.id }} .ol-hero-media { position: relative; }
-  #shopify-section-{{ section.id }} .ol-hero-media img {
-    width: 100%; height: auto; border-radius: 6px; box-shadow: var(--ol-sombra);
+  #shopify-section-{{ section.id }} .ol-hero-panel-wrap { position: relative; z-index: 1; width: 100%; }
+  #shopify-section-{{ section.id }} .ol-hero-panel { max-width: 560px; }
+  #shopify-section-{{ section.id }} .ol-hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ol-verde-oscuro); background: var(--ol-dorado); padding: 7px 14px; border-radius: 999px; margin-bottom: 20px;
   }
-  #shopify-section-{{ section.id }} .ol-hero-placeholder {
-    aspect-ratio: 4 / 5; border-radius: 6px; font-family: var(--ol-fuente); font-weight: 800; font-size: 28px; letter-spacing: 0.04em;
-  }
-  @media screen and (max-width: 989px) {
-    #shopify-section-{{ section.id }} .ol-hero-grid { grid-template-columns: 1fr; min-height: auto; }
-    #shopify-section-{{ section.id }} .ol-hero-media { order: -1; }
+  #shopify-section-{{ section.id }} .ol-hero-titulo { display: flex; flex-direction: column; gap: 2px; margin-bottom: 20px; }
+  #shopify-section-{{ section.id }} .ol-hero-linea { line-height: 1.08; }
+  #shopify-section-{{ section.id }} .ol-hero-subtitulo { font-size: 18px; max-width: 44ch; margin-bottom: 14px; }
+  #shopify-section-{{ section.id }} .ol-hero-cert { font-size: 13px; font-weight: 700; letter-spacing: 0.03em; color: var(--ol-dorado-claro); margin: 0 0 28px; }
+  #shopify-section-{{ section.id }} .ol-hero-boton { font-size: 17px; padding: 18px 36px; }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} { min-height: 560px; }
+    #shopify-section-{{ section.id }} .ol-hero-degradado { background: linear-gradient(180deg, rgba(15,42,31,0.55) 0%, rgba(15,42,31,0.92) 62%, rgba(15,42,31,0.97) 100%); }
+    #shopify-section-{{ section.id }} .ol-hero-panel-wrap { display: flex; align-items: flex-end; height: 100%; padding-bottom: 40px; }
+    #shopify-section-{{ section.id }} .ol-hero-panel { max-width: 100%; }
   }
 {% endstyle %}
 
 {% schema %}
 {
-  "name": "Hero (reconocimiento)",
+  "name": "Hero",
   "tag": "section",
   "settings": [
-    { "type": "checkbox", "id": "tema_oscuro", "label": "Fondo verde oscuro (texto claro)", "default": false },
-    { "type": "color", "id": "color_fondo", "label": "Color de fondo", "default": "#FAF7F0" },
-    { "type": "text", "id": "eyebrow", "label": "Texto pequeño superior", "default": "HERRAMIENTA DE SUSTITUCIÓN ATLÉTICA" },
-    { "type": "text", "id": "titulo", "label": "Título", "default": "Si corres con tu perro para cansarlo, estás empeorándolo." },
-    { "type": "textarea", "id": "cuerpo", "label": "Texto", "default": "Te explico por qué en 60 segundos — y cómo cansarlo de verdad en 20 minutos al día, sin mover un brazo." },
-    { "type": "image_picker", "id": "imagen", "label": "Imagen (el producto)" },
-    { "type": "header", "content": "Botones" },
-    { "type": "text", "id": "boton_1_texto", "label": "Texto botón 1", "default": "Descubre por qué" },
-    { "type": "url", "id": "boton_1_enlace", "label": "Enlace botón 1" },
-    { "type": "text", "id": "boton_2_texto", "label": "Texto botón 2", "default": "Ver el producto" },
-    { "type": "url", "id": "boton_2_enlace", "label": "Enlace botón 2" },
-    { "type": "header", "content": "Tipografía" },
-    { "type": "range", "id": "tamano_titulo", "label": "Tamaño del título (px)", "min": 28, "max": 72, "step": 2, "unit": "px", "default": 52 },
-    { "type": "range", "id": "tamano_cuerpo", "label": "Tamaño del texto (px)", "min": 14, "max": 24, "step": 1, "unit": "px", "default": 18 },
-    { "type": "header", "content": "Espaciado" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 },
-    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 64 }
+    { "type": "image_picker", "id": "imagen", "label": "Background image" },
+    { "type": "text", "id": "badge_texto", "label": "Small badge text", "default": "For dogs that never quit" },
+    { "type": "header", "content": "Headline (3 short lines)" },
+    { "type": "text", "id": "linea_1", "label": "Line 1", "default": "Stop throwing." },
+    { "type": "text", "id": "linea_2", "label": "Line 2", "default": "Start relaxing." },
+    { "type": "text", "id": "linea_3", "label": "Line 3", "default": "Tire them out, automatically." },
+    { "type": "textarea", "id": "subtitulo", "label": "Subtitle (mention your mechanism name)", "default": "DrySpin™ is the first drool-proof ball launcher engineered for dogs that never get tired." },
+    { "type": "text", "id": "linea_certificacion", "label": "Certified technology line", "default": "🛡 Engineered technology — lab-tested for real backyard abuse." },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "boton_texto", "label": "Button text", "default": "Meet DrySpin™" },
+    { "type": "url", "id": "boton_enlace", "label": "Button link (anchor to product grid, e.g. #ol-shop)" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "tamano_titulo", "label": "Headline size (px)", "min": 28, "max": 72, "step": 2, "unit": "px", "default": 48 },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 }
   ],
-  "presets": [ { "name": "Hero (reconocimiento)" } ]
+  "presets": [ { "name": "Hero" } ]
 }
 {% endschema %}

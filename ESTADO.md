@@ -12,20 +12,25 @@
   autenticado con esta tienda — herramientas `mcp__Shopify__*`
   (`graphql_query`, `graphql_mutation`, `search_products`, `get-product`,
   etc.). No se necesita ningún login adicional del usuario para esto.
-- Tema de trabajo creado en Shopify: **"OffLeash (Claude)"**,
-  id `gid://shopify/OnlineStoreTheme/188048408956`, rol UNPUBLISHED,
-  creado desde el ZIP oficial de Dawn
-  (`https://github.com/Shopify/dawn/archive/refs/heads/main.zip`, descargado
-  directamente por los servidores de Shopify vía `themeCreate`).
+- Tema original: **"OffLeash (Claude)"**,
+  id `gid://shopify/OnlineStoreTheme/188048408956`, creado desde el ZIP
+  oficial de Dawn vía `themeCreate`. **El usuario lo publicó desde su panel
+  — ahora es el tema MAIN (en vivo).** Contiene la versión español/EUR
+  completa (portada, producto, header/footer, legales) descrita más abajo.
+  Ya no se debe escribir en este tema por Admin API (el conector bloquea
+  escrituras sobre el tema en vivo por seguridad).
+- **Tema de trabajo actual (draft en inglés/USD)**: **"OffLeash US (Claude
+  draft)"**, id `gid://shopify/OnlineStoreTheme/188049293692`, rol
+  UNPUBLISHED, creado con `themeDuplicate` a partir del tema en vivo el
+  2026-07-18 al empezar el rediseño en inglés (ver sección "Rediseño EN/USD"
+  más abajo). Todo el trabajo nuevo va aquí hasta que el usuario lo revise y
+  publique.
 - Publicación: la mutación `themePublish` está bloqueada por seguridad en
-  este conector — la publicación final la hará el usuario con 2 clics en su
-  panel (Tienda online → Temas → Publicar), tras dar el visto bueno a la
-  vista previa. Encaja con la regla de la skill de pedir confirmación antes
-  de publicar.
-- Última publicación: (pendiente — tema completo listo en UNPUBLISHED, en
-  espera del visto bueno del usuario. Publicar requiere 2 clics del usuario
-  en su panel porque `themePublish` está bloqueado por seguridad en el
-  conector Admin API usado en este entorno; ver nota de fase 6 más abajo)
+  este conector — cualquier publicación futura la hará el usuario con 2
+  clics en su panel (Tienda online → Temas → Publicar), tras dar el visto
+  bueno a la vista previa.
+- Última publicación: el tema español/EUR "OffLeash (Claude)", publicado
+  por el usuario (fecha exacta no registrada, detectado el 2026-07-18).
 
 ## Producto encontrado en la sonda inicial (fase 1)
 
@@ -332,4 +337,75 @@ preguntar)
   manda; si no, construyo con huecos editables.
 
 ## Secciones creadas
-(se rellena en la fase 4)
+(fase 4, ver arriba: ol-hero, ol-revelacion, ol-mecanismo, ol-antivillano,
+ol-permiso, ol-oferta, ol-honestidad, ol-cta-final — versión español/EUR,
+ahora en vivo en el tema "OffLeash (Claude)")
+
+## Rediseño EN/USD — arquitectura estilo Pet Loving Home (en curso)
+
+El usuario pidió replicar la ARQUITECTURA (no el copy/imágenes/temática) de
+petlovinghome.com, adaptada 100% a OffLeash, en inglés (US). Reglas clave
+del encargo:
+- Idioma inglés (US) en todo el front (menús, botones, FAQs, carrito,
+  legales). **Pendiente de aviso al usuario**: la moneda REAL de la tienda
+  es EUR a nivel de cuenta (Configuración → General, ligado a su banco);
+  cambiarla a USD de verdad es una decisión de cuenta que no puedo tomar yo
+  — sigo construyendo el copy/precios en formato $ y uso el filtro `money`
+  de Shopify, que mostrará € hasta que el usuario cambie la configuración
+  de moneda de la tienda.
+- Nombre del mecanismo propietario inventado para el copy en inglés:
+  **DrySpin™** (las ruedas de inercia texturizadas anti-babas).
+- Sin literales de la referencia (nada de velas/aromas/fragancias) y sin
+  suscripción/recompra (producto de compra única) — AOV con accesorios
+  (pelotas extra, batería, adaptador), no con recurrencia.
+- Precio de trabajo: $89–99 (pendiente fijar variante exacta).
+- Trabajo por tandas con preview antes de seguir; NO publicar hasta
+  confirmación explícita del usuario.
+
+### Evento importante: el tema original pasó a estar en vivo
+A mitad de esta fase, el usuario publicó "OffLeash (Claude)" desde su panel
+(pasó a rol MAIN). El conector Admin API bloqueó automáticamente mi
+siguiente intento de escritura por seguridad ("Theme file writes against
+the live storefront are blocked"). Solución: dupliqué el tema en vivo con
+`themeDuplicate` → nuevo tema **"OffLeash US (Claude draft)"**
+(`gid://shopify/OnlineStoreTheme/188049293692`, UNPUBLISHED). Todo el
+rediseño en inglés continúa exclusivamente en este tema nuevo; el tema en
+vivo en español queda intacto mientras tanto.
+
+### Hecho (checkpoint 1 de varios — header + hero)
+- `sections/ol-announcement.liquid` (NUEVO): barra de anuncio en marquesina
+  infinita (reutiliza `.ol-marquesina-track` de `ol-styles.css`), bloques de
+  mensaje editables. Sustituye a la `announcement-bar` nativa de Dawn en
+  `sections/header-group.json`.
+- `sections/ol-hero.liquid` (rediseñado por completo): imagen de fondo a
+  sangre + degradado, insignia pequeña, titular en 3 líneas cortas
+  editables por separado, subtítulo con el nombre del mecanismo (DrySpin™),
+  línea de "tecnología certificada", un único botón CTA con ancla
+  (`#ol-shop`, pendiente de que exista esa sección en el checkpoint 2).
+- Menú principal (`main-menu`) actualizado a inglés: Shop
+  (`/collections/all`), FAQs (`/#faqs`), About Us, Contact.
+- Página `Contact` renombrada a "Contact Us" (en inglés). Página `About Us`
+  creada (contenido mínimo, se ampliará en el checkpoint de páginas
+  adicionales).
+- `templates/index.json`: settings del hero actualizados al nuevo schema en
+  inglés. El resto de secciones de la portada (revelación, mecanismo,
+  antivillano, permiso, oferta, honestidad, CTA final) **siguen en español
+  de momento** — se traducirán/rediseñarán en los próximos checkpoints
+  siguiendo el resto de la arquitectura de 14 secciones que pidió el
+  usuario (tira de iconos, grid de producto, lockup del mecanismo, 3
+  bloques alternos, barra de confianza, reseñas en carrusel, galería UGC en
+  vídeo, tabla comparativa ampliada, FAQ con ancla, footer con newsletter,
+  botón flotante de WhatsApp, carrito con barra de envío gratis).
+
+### Vista previa del checkpoint 1
+`https://a8d44c-zc.myshopify.com/?preview_theme_id=188049293692`
+(recuerda: el resto de la portada bajo el hero sigue en español hasta el
+próximo checkpoint — es esperado, no es un error).
+
+### Pendiente / decisiones del usuario
+- Confirmar el checkpoint 1 (header + hero) antes de seguir con el resto,
+  tal y como pidió en su orden de trabajo.
+- Precio final de la variante: sigue en 99,00 (mostrado en EUR hasta que
+  cambie la moneda de cuenta).
+- Sigue pendiente la clave de OpenAI / foto real si quiere fotos generadas
+  para el hero y el resto de huecos de imagen.

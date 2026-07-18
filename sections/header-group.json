@@ -11,29 +11,15 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
+    "announcement-marquee": {
+      "type": "ol-announcement",
       "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
-          "settings": {
-            "text": "🛡 El Reto de la Baba: 90 días o te devolvemos todo",
-            "link": ""
-          }
-        }
+        "m1": { "type": "mensaje", "settings": { "texto": "Free shipping over $60" } },
+        "m2": { "type": "mensaje", "settings": { "texto": "Built for dogs that never get tired" } },
+        "m3": { "type": "mensaje", "settings": { "texto": "90-Day Drool Challenge Guarantee" } }
       },
-      "block_order": [
-        "announcement-bar-0"
-      ],
-      "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-3",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {}
     },
     "header": {
       "type": "header",
@@ -56,7 +42,7 @@
     }
   },
   "order": [
-    "announcement-bar",
+    "announcement-marquee",
     "header"
   ]
 }
