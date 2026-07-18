@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "principal": {
+      "type": "ol-producto",
+      "blocks": {
+        "c1": { "type": "confianza", "settings": { "icono": "🚚", "texto": "Envío en 2-4 días laborables" } },
+        "c2": { "type": "confianza", "settings": { "icono": "🔒", "texto": "Pago 100% seguro" } },
+        "c3": { "type": "confianza", "settings": { "icono": "↩️", "texto": "Reto de la Baba: 90 días o te devolvemos todo" } }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": {}
+    },
+    "mecanismo": {
+      "type": "ol-mecanismo",
+      "blocks": {
+        "m1": { "type": "prueba", "settings": { "icono": "💧", "titulo": "Ruedas anti-babas", "texto": "Ruedas de inercia duales texturizadas: tracción implacable sobre la pelota más empapada." } },
+        "m2": { "type": "prueba", "settings": { "icono": "⚙️", "titulo": "Resistencia industrial", "texto": "Motores de corriente continua de servicio sostenido. No motorcitos de juguete." } },
+        "m3": { "type": "prueba", "settings": { "icono": "🔇", "titulo": "No castra el juego", "texto": "Sin modo-reposo forzado que enfurece a tu perro. Funcionamiento silencioso que no lo asusta." } }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {}
+    },
+    "comparativa": {
+      "type": "ol-antivillano",
+      "blocks": {
+        "f1": { "type": "fila", "settings": { "etiqueta": "Babas", "valor_propio": "✅ Traga la baba sin fallo", "valor_2": "⚠️ Falla con babas", "valor_3": "⚠️ Bola anti-babas aparte", "valor_4": "❌ Se atasca en minutos" } },
+        "f2": { "type": "fila", "settings": { "etiqueta": "Modo reposo", "valor_propio": "✅ Sin límite, no castra el juego", "valor_2": "⚠️ Se apaga a los 30 min", "valor_3": "⚠️ Pensado para bolas pequeñas", "valor_4": "❌ Durabilidad dudosa" } },
+        "f3": { "type": "fila", "settings": { "etiqueta": "Garantía", "valor_propio": "✅ Reto de la Baba — 90 días", "valor_2": "Garantía estándar", "valor_3": "Garantía estándar", "valor_4": "❌ Sin garantía real" } }
+      },
+      "block_order": ["f1", "f2", "f3"],
+      "settings": { "color_fondo": "#F1EBDD" }
+    },
+    "oferta": {
+      "type": "ol-oferta",
+      "blocks": {
+        "i1": { "type": "item", "settings": { "nombre": "Lanzador OffLeash", "funcion": "El núcleo: cansa a tu perro de verdad", "valor": "99 €" } },
+        "i2": { "type": "item", "settings": { "nombre": "Pack de pelotas anti-babas (x6)", "funcion": "Prueba que el mecanismo las traga", "valor": "29 €" } },
+        "i3": { "type": "item", "settings": { "nombre": "Protocolo Auto-Recarga en 7 Días", "funcion": "Vídeo guiado: tu perro aprende a recargarlo", "valor": "49 €" } },
+        "i4": { "type": "item", "settings": { "nombre": "Guía \"La Trampa del Agotamiento\"", "funcion": "El plan de saciedad completo", "valor": "39 €" } },
+        "i5": { "type": "item", "settings": { "nombre": "Adaptador CA + batería de alta capacidad", "funcion": "Juego ilimitado, sin cambiar pilas", "valor": "25 €" } },
+        "i6": { "type": "item", "settings": { "nombre": "Garantía extendida \"A Prueba de Vida Canina\"", "funcion": "12–24 meses de tranquilidad", "valor": "59 €" } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6"],
+      "settings": { "color_fondo": "#FFFFFF" }
+    },
+    "permiso": {
+      "type": "ol-permiso",
+      "blocks": {
+        "r1": { "type": "testimonio", "settings": { "cita": "Corríamos una hora y seguía rebotando en las paredes. Ahora juega 20 minutos solo y se desploma.", "autor": "Marta", "contexto": "Border Collie, teletrabajadora" } },
+        "r2": { "type": "testimonio", "settings": { "cita": "Ya había tirado dinero en dos lanzadores que se atascaron con la primera baba. Este lleva 4 meses sin fallar.", "autor": "Javier", "contexto": "Labrador de 3 años" } },
+        "r3": { "type": "testimonio", "settings": { "cita": "Lo mejor: no le asusta el ruido. Mi perro es miedoso y lo usa desde el primer día sin problema.", "autor": "Carla", "contexto": "Pastor Alemán" } }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": { "titulo": "Lo que dicen los que ya rompieron la trampa" }
+    },
+    "faq": {
+      "type": "ol-honestidad",
+      "blocks": {
+        "q1": { "type": "pregunta", "settings": { "pregunta": "¿Se atascará con la baba de mi perro?", "respuesta": "Es la objeción número uno, y la entendemos: mató a tus lanzadores anteriores. Por eso existe el Reto de la Baba — si el motor se atasca una sola vez en 90 días, te devolvemos cada céntimo y te quedas con las pelotas." } },
+        "q2": { "type": "pregunta", "settings": { "pregunta": "¿Mi perro aprenderá a recargarlo solo?", "respuesta": "Con honestidad: requiere un breve entrenamiento, no es magia instantánea. Por eso incluimos el Protocolo Auto-Recarga en 7 Días, un vídeo guiado paso a paso." } },
+        "q3": { "type": "pregunta", "settings": { "pregunta": "Mi perro es de pastoreo, ¿se plantará frente al lanzador?", "respuesta": "Puede pasar — algunas razas de pastoreo tienden a plantarse frente al cañón por instinto. No prometemos magia: te explicamos el work-around exacto en la guía incluida." } },
+        "q4": { "type": "pregunta", "settings": { "pregunta": "Ya tiré dinero en otro lanzador que falló. ¿Por qué confiar ahora?", "respuesta": "No pagas si falla. Es así de simple: toda la inversión del riesgo es nuestra, no tuya." } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"],
+      "settings": {}
+    }
+  },
+  "order": ["principal", "mecanismo", "comparativa", "oferta", "permiso", "faq"]
+}

@@ -1,0 +1,227 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+{{ 'ol-scripts.js' | asset_url | script_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.color_fondo }};
+  }
+{% endstyle %}
+
+<section class="ol-section ol-producto">
+  <div class="ol-container ol-prod-top">
+    <div class="ol-prod-galeria ol-reveal">
+      {%- assign primera_imagen = product.featured_media | default: product.media.first -%}
+      <div class="ol-prod-imagen-principal" id="ol-prod-imagen-principal-{{ section.id }}">
+        {%- if primera_imagen -%}
+          <img src="{{ primera_imagen | image_url: width: 1200 }}" alt="{{ primera_imagen.alt | default: product.title | escape }}" loading="eager" fetchpriority="high" id="ol-prod-imagen-actual-{{ section.id }}">
+        {%- else -%}
+          <div class="ol-placeholder" style="aspect-ratio:1/1;"><span>{{ product.title | default: 'OffLeash' }}</span></div>
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="ol-prod-miniaturas">
+          {%- for media in product.media -%}
+            <button type="button" class="ol-prod-miniatura {% if forloop.first %}ol-prod-miniatura-activa{% endif %}" data-ol-imagen-grande="{{ media | image_url: width: 1200 }}" aria-label="{{ 'Ver imagen' }} {{ forloop.index }}">
+              <img src="{{ media | image_url: width: 200 }}" alt="{{ media.alt | default: product.title | escape }}" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="ol-prod-compra ol-reveal ol-reveal-1">
+      {%- if section.settings.eyebrow != blank -%}<p class="ol-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="ol-h1 ol-prod-titulo">{{ product.title }}</h1>
+
+      <div class="ol-prod-precio">
+        <span class="ol-prod-precio-actual" id="ol-prod-precio-actual-{{ section.id }}">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+          <span class="ol-prod-precio-anterior">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.subtitulo != blank -%}<p class="ol-body ol-prod-subtitulo">{{ section.settings.subtitulo }}</p>{%- endif -%}
+
+      {% form 'product', product, id: 'ol-form-producto', class: 'ol-prod-form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="ol-prod-variant-id-{{ section.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- capture variantes_json -%}
+            [
+              {%- for variant in product.variants -%}
+                {
+                  "id": {{ variant.id | json }},
+                  "option1": {{ variant.option1 | json }},
+                  "option2": {{ variant.option2 | json }},
+                  "option3": {{ variant.option3 | json }},
+                  "available": {{ variant.available | json }},
+                  "price": {{ variant.price | money | json }}
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ]
+          {%- endcapture -%}
+          <div class="ol-prod-opciones" id="ol-prod-opciones-{{ section.id }}" data-precio-id="ol-prod-precio-actual-{{ section.id }}" data-product-json="{{ variantes_json | strip_newlines | escape }}">
+            {%- for option in product.options_with_values -%}
+              <div class="ol-prod-opcion">
+                <span class="ol-prod-opcion-nombre">{{ option.name }}</span>
+                <div class="ol-prod-opcion-valores" data-ol-opcion-indice="{{ forloop.index0 }}">
+                  {%- for value in option.values -%}
+                    <button type="button" class="ol-prod-pastilla {% if value == option.selected_value %}ol-prod-pastilla-activa{% endif %}" data-ol-valor="{{ value | escape }}">{{ value }}</button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <button type="submit" name="add" class="ol-btn ol-btn-primario ol-prod-boton" id="ol-prod-boton-{{ section.id }}"
+          data-texto-disponible="{{ section.settings.boton_texto | escape }}"
+          data-texto-agotado="{{ section.settings.boton_agotado | escape }}"
+          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+          {%- if product.selected_or_first_available_variant.available == false -%}
+            {{ section.settings.boton_agotado }}
+          {%- else -%}
+            {{ section.settings.boton_texto }}
+          {%- endif -%}
+        </button>
+      {% endform %}
+
+      <div class="ol-prod-confianza">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'confianza' -%}
+            <div class="ol-prod-confianza-item" {{ block.shopify_attributes }}>
+              <span class="ol-prod-confianza-icono">{{ block.settings.icono }}</span>
+              <span>{{ block.settings.texto }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.garantia_texto != blank -%}
+        <div class="ol-badge ol-prod-garantia-badge">{{ section.settings.garantia_texto }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="ol-container ol-prod-descripcion ol-reveal ol-reveal-2">
+    {%- if section.settings.intro != blank -%}
+      <p class="ol-body ol-prod-intro">{{ section.settings.intro }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.caracteristicas != blank -%}
+      <div class="ol-grid ol-cols-3 ol-prod-caracteristicas">
+        {%- assign lineas = section.settings.caracteristicas | newline_to_br | split: '<br />' -%}
+        {%- for linea in lineas -%}
+          {%- assign partes = linea | split: '::' -%}
+          {%- if partes.size == 2 -%}
+            <div class="ol-card ol-prod-caracteristica">
+              <h3 class="ol-h3">{{ partes[0] | strip }}</h3>
+              <p class="ol-body">{{ partes[1] | strip }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.incluye != blank -%}
+      <div class="ol-prod-incluye">
+        <h3 class="ol-h3">{{ section.settings.incluye_titulo }}</h3>
+        <ul class="ol-prod-incluye-lista">
+          {%- assign items = section.settings.incluye | newline_to_br | split: '<br />' -%}
+          {%- for item in items -%}
+            {%- if item != blank -%}<li>{{ item | strip }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if product.description != blank -%}
+      <div class="ol-prod-descripcion-catalogo ol-body">{{ product.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-prod-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: 48px 0; }
+  #shopify-section-{{ section.id }} .ol-prod-imagen-principal { border-radius: 6px; overflow: hidden; aspect-ratio: 1/1; background: var(--ol-crema-2); }
+  #shopify-section-{{ section.id }} .ol-prod-imagen-principal img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .ol-prod-miniaturas { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  #shopify-section-{{ section.id }} .ol-prod-miniatura { width: 68px; height: 68px; border-radius: 4px; overflow: hidden; border: 2px solid transparent; padding: 0; cursor: pointer; background: none; }
+  #shopify-section-{{ section.id }} .ol-prod-miniatura img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .ol-prod-miniatura-activa { border-color: var(--ol-dorado); }
+  #shopify-section-{{ section.id }} .ol-prod-titulo { margin: 10px 0 16px; font-size: 34px; }
+  #shopify-section-{{ section.id }} .ol-prod-precio { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+  #shopify-section-{{ section.id }} .ol-prod-precio-actual { font-family: var(--ol-fuente); font-weight: 800; font-size: 28px; color: var(--ol-verde); }
+  #shopify-section-{{ section.id }} .ol-prod-precio-anterior { text-decoration: line-through; color: var(--ol-texto-suave); font-size: 18px; }
+  #shopify-section-{{ section.id }} .ol-prod-subtitulo { margin-bottom: 22px; }
+  #shopify-section-{{ section.id }} .ol-prod-opciones { margin-bottom: 20px; }
+  #shopify-section-{{ section.id }} .ol-prod-opcion { margin-bottom: 14px; }
+  #shopify-section-{{ section.id }} .ol-prod-opcion-nombre { display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+  #shopify-section-{{ section.id }} .ol-prod-opcion-valores { display: flex; gap: 8px; flex-wrap: wrap; }
+  #shopify-section-{{ section.id }} .ol-prod-pastilla { padding: 9px 18px; border-radius: 999px; border: 1.5px solid var(--ol-linea); background: var(--ol-blanco); cursor: pointer; font-size: 14px; }
+  #shopify-section-{{ section.id }} .ol-prod-pastilla-activa { border-color: var(--ol-verde); background: var(--ol-verde); color: var(--ol-crema); }
+  #shopify-section-{{ section.id }} .ol-prod-boton { width: 100%; margin-bottom: 22px; }
+  #shopify-section-{{ section.id }} .ol-prod-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+  #shopify-section-{{ section.id }} .ol-prod-boton:disabled:hover { transform: none; }
+  #shopify-section-{{ section.id }} .ol-prod-confianza { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  #shopify-section-{{ section.id }} .ol-prod-confianza-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ol-texto-suave); }
+  #shopify-section-{{ section.id }} .ol-prod-confianza-icono { font-size: 18px; }
+  #shopify-section-{{ section.id }} .ol-prod-garantia-badge { display: inline-flex; }
+  #shopify-section-{{ section.id }} .ol-prod-descripcion { max-width: 860px; margin: 0 auto; padding-bottom: 48px; }
+  #shopify-section-{{ section.id }} .ol-prod-intro { font-size: 18px; margin-bottom: 32px; }
+  #shopify-section-{{ section.id }} .ol-prod-caracteristicas { margin-bottom: 32px; }
+  #shopify-section-{{ section.id }} .ol-prod-caracteristica { padding: 24px; }
+  #shopify-section-{{ section.id }} .ol-prod-caracteristica h3 { margin-bottom: 8px; font-size: 18px; }
+  #shopify-section-{{ section.id }} .ol-prod-incluye { margin-bottom: 32px; }
+  #shopify-section-{{ section.id }} .ol-prod-incluye h3 { margin-bottom: 14px; }
+  #shopify-section-{{ section.id }} .ol-prod-incluye-lista { padding-left: 20px; color: var(--ol-texto-suave); line-height: 1.8; }
+  #shopify-section-{{ section.id }} .ol-prod-descripcion-catalogo { padding-top: 16px; border-top: 1px solid var(--ol-linea); }
+  @media screen and (max-width: 899px) {
+    #shopify-section-{{ section.id }} .ol-prod-top { grid-template-columns: 1fr; gap: 28px; padding: 28px 0; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Producto OffLeash",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Color de fondo", "default": "#FFFFFF" },
+    { "type": "text", "id": "eyebrow", "label": "Texto pequeño superior", "default": "HERRAMIENTA DE SUSTITUCIÓN ATLÉTICA" },
+    { "type": "text", "id": "subtitulo", "label": "Subtítulo bajo el precio", "default": "Cánsalo de verdad en 20 minutos al día — sin mover un brazo, sin culpa." },
+    { "type": "text", "id": "boton_texto", "label": "Texto del botón (disponible)", "default": "Quiero el mío" },
+    { "type": "text", "id": "boton_agotado", "label": "Texto del botón (agotado)", "default": "Agotado por ahora" },
+    { "type": "text", "id": "garantia_texto", "label": "Insignia de garantía", "default": "🛡 Reto de la Baba — 90 días" },
+    { "type": "header", "content": "Descripción" },
+    { "type": "textarea", "id": "intro", "label": "Párrafo de introducción", "default": "No es un juguete que lanza la pelota por ti. Es la herramienta que por fin cansa a tu perro de verdad, a prueba de babas y sin castrar su juego." },
+    { "type": "textarea", "id": "caracteristicas", "label": "Características (una por línea, formato: Título::Texto)", "default": "A prueba de babas::Tracción implacable incluso con la pelota más sucia.\nResistencia industrial::Motores de servicio sostenido, no motorcitos de juguete.\nNo castra el juego::Sin modo-reposo forzado ni sonidos que asusten a tu perro." },
+    { "type": "text", "id": "incluye_titulo", "label": "Título de \"qué incluye\"", "default": "Qué incluye" },
+    { "type": "textarea", "id": "incluye", "label": "Qué incluye (un ítem por línea)", "default": "1 lanzador OffLeash\n6 pelotas anti-babas\nAdaptador de corriente + batería\nProtocolo Auto-Recarga en 7 Días (vídeo)\nGuía \"La Trampa del Agotamiento\"" },
+    { "type": "header", "content": "Espaciado" },
+    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "confianza",
+      "name": "Fila de confianza",
+      "settings": [
+        { "type": "text", "id": "icono", "label": "Icono (emoji)", "default": "🚚" },
+        { "type": "text", "id": "texto", "label": "Texto", "default": "Envío en 2-4 días laborables" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Producto OffLeash",
+      "blocks": [
+        { "type": "confianza", "settings": { "icono": "🚚", "texto": "Envío en 2-4 días laborables" } },
+        { "type": "confianza", "settings": { "icono": "🔒", "texto": "Pago 100% seguro" } },
+        { "type": "confianza", "settings": { "icono": "↩️", "texto": "Reto de la Baba: 90 días o te devolvemos todo" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
