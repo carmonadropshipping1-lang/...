@@ -44,9 +44,69 @@
 - [x] 2 Proyecto (tema base Dawn creado en Shopify)
 - [x] 3 Brief en un mensaje (mensaje 2 enviado y respondido con material real)
 - [ ] 3b Fotos IA (pendiente: falta clave OpenAI y/o el archivo de la foto real)
-- [ ] 4 Construcción
+- [x] 4 Construcción (portada completa subida al tema)
 - [ ] 5 Producto y páginas
 - [ ] 6 Publicación
+
+## Vista previa (fase 4 completada)
+
+- URL: `https://a8d44c-zc.myshopify.com/?preview_theme_id=188048408956`
+- **No he podido verla yo mismo**: este entorno en la nube no tiene acceso de
+  red al dominio de la tienda (ni por curl ni por WebFetch — bloqueado por la
+  política de red / protección de la tienda nueva). Toda la validación que he
+  podido hacer es en el servidor de Shopify: la subida de cada archivo se
+  validó sin `userErrors` (JSON de schema válido, nombres de sección ≤25
+  caracteres, valores de `range` alineados al paso, sin `default` en
+  ajustes `url`, contrato ROOT PADDING FIX respetado). Cuando lleguemos a la
+  fase 6 le pediré al usuario una captura o confirmación visual, ya que no
+  puedo auto-revisar como manda la regla de oro nº 7.
+- La tienda es nueva y probablemente tiene la contraseña de "tienda en
+  construcción" activada (Tienda online → Preferencias, para quitarla o ver
+  la contraseña).
+
+## Secciones creadas (fase 4)
+
+Prefijo `ol-` (OffLeash). Todas con textos, imágenes, tamaños de letra,
+alineación y espaciado editables desde el editor de Shopify (contrato de la
+fase 4 cumplido: ROOT PADDING FIX aplicado, sin defaults en settings `url`,
+`newline_to_br` en textareas, `image_picker` con respaldo en placeholder CSS
+ya que no hay fotos propias todavía).
+
+1. `sections/ol-hero.liquid` — Hero de reconocimiento/disonancia: hook
+   "Si corres con tu perro para cansarlo, estás empeorándolo."
+2. `sections/ol-revelacion.liquid` — Revelación/absolución biológica +
+   cita destacada con el tagline.
+3. `sections/ol-mecanismo.liquid` — "A prueba de babas": comparador
+   antes/después (slider arrastrable) + 3 tarjetas de prueba (ruedas
+   anti-babas, resistencia industrial, no castra el juego).
+4. `sections/ol-antivillano.liquid` — Tabla comparativa honesta vs PetSafe,
+   iFetch y clones genéricos.
+5. `sections/ol-permiso.liquid` — Transformación antes→después (culpa→
+   permiso) + 3 testimonios.
+6. `sections/ol-oferta.liquid` — Stack de valor (6 elementos, ~300€ →
+   99€) + tarjeta de garantía "El Reto de la Baba".
+7. `sections/ol-honestidad.liquid` — FAQ acordeón con las 7 objeciones
+   principales del Messaging Framework.
+8. `sections/ol-cta-final.liquid` — Cierre con tagline y CTA dorado.
+
+Archivos de soporte: `assets/ol-styles.css` (tokens de marca: verde bosque
+`#1B4332`, crema `#FAF7F0`, dorado `#C6A15B`; reveals on scroll, comparador
+deslizante, acordeón FAQ, marquesina), `assets/ol-scripts.js` (mismo
+comportamiento), `templates/index.json` (monta la portada con las 8
+secciones y contenido real ya redactado, no genérico).
+
+`config/settings_data.json`: esquemas de color de Dawn realineados a la
+marca (scheme-1/2 claros crema+verde, scheme-3 verde oscuro, scheme-4
+dorado) y `type_header_font` a `assistant_n7` (negrita) — así el carrito,
+buscador y demás partes nativas de Dawn visten los colores de la marca.
+
+## Enlaces de la portada (pendiente de handle limpio)
+
+Los botones de la portada apuntan a `/products/offleash-automatic-ball-launcher`.
+El producto real tiene ahora el handle `offleash™-automatic-ball-launcher`
+(con el símbolo ™, heredado del título). **Pendiente en fase 5**: renombrar
+el handle del producto a la versión limpia para que estos enlaces funcionen,
+o actualizarlos si se decide mantener el handle actual.
 
 ## Brief de marca (recibido del usuario tras el mensaje 2)
 
