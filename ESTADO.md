@@ -22,7 +22,10 @@
   panel (Tienda online → Temas → Publicar), tras dar el visto bueno a la
   vista previa. Encaja con la regla de la skill de pedir confirmación antes
   de publicar.
-- Última publicación: (pendiente)
+- Última publicación: (pendiente — tema completo listo en UNPUBLISHED, en
+  espera del visto bueno del usuario. Publicar requiere 2 clics del usuario
+  en su panel porque `themePublish` está bloqueado por seguridad en el
+  conector Admin API usado en este entorno; ver nota de fase 6 más abajo)
 
 ## Producto encontrado en la sonda inicial (fase 1)
 
@@ -109,6 +112,39 @@ favicon PNG propio desde el editor, ese tiene prioridad automáticamente.
   pública): Configuración → Políticas → "Crear a partir de plantilla" en
   Privacidad, Términos, Devoluciones y Envíos. El footer de Dawn ya las
   enlaza automáticamente en cuanto existan (`show_policy` ya está activado).
+
+## Fase 6 — publicación
+
+- Tema de trabajo (UNPUBLISHED): `gid://shopify/OnlineStoreTheme/188048408956`.
+  Enlace de previsualización de la portada:
+  `https://a8d44c-zc.myshopify.com/?preview_theme_id=188048408956`.
+  Página de producto: `https://a8d44c-zc.myshopify.com/products/offleash-automatic-ball-launcher?preview_theme_id=188048408956`.
+- **Auto-revisión (regla de oro nº 7): NO ha sido posible desde este
+  entorno.** Los tres niveles de la escalera de la fase 6 fallan aquí:
+  1) sin navegador para capturar; 2) `shopify theme dev` no funciona porque
+  el login de CLI está bloqueado por la política de red (ver nota técnica al
+  principio de este archivo); 3) toca pedir al usuario una captura — ya se
+  le ha pedido en el chat. Toda la validación real hecha ha sido del lado de
+  Shopify: cada `themeFilesUpsert` y cada mutación de producto se comprobó
+  sin `userErrors`.
+- **Publicar en vivo**: la mutación `themePublish` está bloqueada por
+  seguridad en el conector Admin API de este entorno (mensaje del propio
+  conector: "Theme file writes ... writes that target the live/MAIN theme
+  are blocked" y publicación explícitamente en la lista de mutaciones
+  peligrosas bloqueadas). Cuando el usuario dé el visto bueno a la vista
+  previa, la publicación la hace él mismo en 2 clics: **Tienda online →
+  Temas → en el tema "OffLeash (Claude)" → ⋯ → Publicar.**
+
+### Lista de pendientes para el usuario (checklist)
+- ⬜ Ver la vista previa y confirmar que el diseño encaja (o pedir cambios).
+- ⬜ Rellenar las 4 políticas nativas (Configuración → Políticas → plantilla).
+- ⬜ Revisar/completar los datos de Aviso Legal y Política de Cookies
+  (NIF, nombre legal, email de contacto).
+- ⬜ Decidir cuántas unidades hay en stock (ahora mismo el botón de compra
+  sale como "Agotado" porque el inventario está a 0).
+- ⬜ Si quiere fotos generadas con IA: mandar la foto real del producto como
+  archivo adjunto + la clave de OpenAI.
+- ⬜ Cuando esté conforme: publicar el tema (2 clics, arriba).
 
 ## Vista previa (fase 4 completada)
 
