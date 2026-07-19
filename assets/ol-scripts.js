@@ -180,6 +180,21 @@
     });
   }
 
+  function initCantidadProducto() {
+    document.querySelectorAll('[data-ol-cantidad]').forEach(function (wrap) {
+      var input = wrap.querySelector('[data-ol-cantidad-input]');
+      var menos = wrap.querySelector('[data-ol-cantidad-menos]');
+      var mas = wrap.querySelector('[data-ol-cantidad-mas]');
+      if (!input || !menos || !mas) return;
+      menos.addEventListener('click', function () {
+        input.value = Math.max(1, (parseInt(input.value, 10) || 1) - 1);
+      });
+      mas.addEventListener('click', function () {
+        input.value = (parseInt(input.value, 10) || 1) + 1;
+      });
+    });
+  }
+
   function initBarraEnvioGratis() {
     var UMBRAL = 60; // free shipping threshold, in shop currency major units
     var header = document.querySelector('#CartDrawer .drawer__header');
@@ -234,6 +249,7 @@
     initMarquesinas();
     initGaleriaProducto();
     initSelectorVariantes();
+    initCantidadProducto();
     initEventosCarrito();
   });
 })();

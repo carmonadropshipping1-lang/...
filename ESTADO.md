@@ -452,17 +452,54 @@ Secciones antiguas en español (`ol-revelacion`, `ol-mecanismo`,
 de prueba se redistribuyó dentro de los 3 bloques `ol-beneficio-alterno`.
 
 ### Pendiente inmediato
-- **Página de producto** (`sections/ol-producto.liquid` +
-  `templates/product.ol.json`): todavía en español de la fase 5, sin
-  tocar en este rediseño EN/USD. Es el siguiente paso, según el propio
-  plan del usuario ("cuando validemos la home, aplica la misma lógica a
-  la página de producto de la segunda captura").
 - Confirmación visual del usuario sobre esta nueva portada completa
   (no puedo verla yo mismo — ver limitación de red de siempre).
 - **Aviso importante para el usuario**: por favor no publiques este tema
   todavía — si lo haces antes de que termine, tendré que duplicar de
   nuevo y perderás el enlace de vista previa actual (ya ha pasado dos
   veces). Avísame primero y lo revisamos juntos.
+
+## Página de producto en inglés/USD (completada tras aprobar la home)
+
+El usuario confirmó la portada ("esta genial, no termino de entender el
+diseño del hero, pero dejalo así si esta bien para ti") y pidió seguir con
+la página de producto. Hecho:
+
+- **Producto (Admin API)**: título traducido a "OffLeash™ — Drool-Proof
+  Automatic Ball Launcher", `descriptionHtml` reescrito en inglés
+  (mismo mensaje de posicionamiento, mención a DrySpin™ implícita vía
+  "sustained-duty motor"), `productType` → "Athletic Replacement Tool",
+  SEO title/description propios en inglés. Precio sigue en 99.00
+  (mostrado en EUR hasta que cambie la moneda de cuenta — sin cambios
+  aquí, decisión pendiente del usuario).
+- **`sections/ol-producto.liquid`** (reescrita): todo el copy y labels
+  del schema en inglés; añadido bloque de valoración (★★★★★ 4.7 — 312
+  reviews) bajo el título; añadido selector de cantidad (+/-) junto al
+  botón de compra; añadido acordeón de información adicional (Shipping &
+  Returns, What's in the box, Warranty) reutilizando el componente FAQ ya
+  existente (`.ol-faq-item`). El selector de variantes, la galería de
+  miniaturas y el formulario de compra real no se tocaron (ya
+  funcionaban, son independientes del idioma).
+- **`assets/ol-scripts.js`**: nueva función `initCantidadProducto()`
+  (botones +/- del selector de cantidad), añadida a la lista de
+  inicialización.
+- **`templates/product.ol.json`** (reescrito): aplica la misma lógica de
+  arquitectura que la portada, reutilizando las secciones ya en inglés:
+  producto (con fila de confianza + acordeón), `ol-lockup` (DrySpin™),
+  2 bloques `ol-beneficio-alterno`, `ol-confianza-barra`, `ol-resenas`,
+  `ol-antivillano` (comparativa) y `ol-honestidad` (FAQ).
+- **Nota técnica**: al subir el schema nuevo (bloque `acordeon`) y la
+  plantilla que lo usa en la MISMA llamada a `themeFilesUpsert`, Shopify
+  devolvió error de tipo de bloque no reconocido — la validación de la
+  plantilla no ve el schema recién subido dentro de la misma mutación.
+  Solución: subir primero la sección con el schema nuevo, confirmar éxito,
+  y subir la plantilla en una llamada `themeFilesUpsert` aparte.
+
+Todo subido sin `userErrors` al tema `188049719676` (confirmado
+UNPUBLISHED antes y después de subir).
+
+### Vista previa de la página de producto
+`https://a8d44c-zc.myshopify.com/products/offleash-automatic-ball-launcher?preview_theme_id=188049719676`
 
 ### Vista previa (tema v2, vigente)
 `https://a8d44c-zc.myshopify.com/?preview_theme_id=188049719676`

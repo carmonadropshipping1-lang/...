@@ -3,67 +3,113 @@
     "principal": {
       "type": "ol-producto",
       "blocks": {
-        "c1": { "type": "confianza", "settings": { "icono": "🚚", "texto": "Envío en 2-4 días laborables" } },
-        "c2": { "type": "confianza", "settings": { "icono": "🔒", "texto": "Pago 100% seguro" } },
-        "c3": { "type": "confianza", "settings": { "icono": "↩️", "texto": "Reto de la Baba: 90 días o te devolvemos todo" } }
+        "c1": { "type": "confianza", "settings": { "icono": "🚚", "texto": "Ships in 2-4 business days" } },
+        "c2": { "type": "confianza", "settings": { "icono": "🔒", "texto": "100% secure payment" } },
+        "c3": { "type": "confianza", "settings": { "icono": "↩️", "texto": "90-Day Drool Challenge — full refund" } },
+        "a1": { "type": "acordeon", "settings": { "titulo": "Shipping & Returns", "contenido": "Ships within 2-4 business days from our US warehouse. Covered by our 90-Day Drool Challenge — full refund if the motor ever jams." } },
+        "a2": { "type": "acordeon", "settings": { "titulo": "What's in the box", "contenido": "1 OffLeash launcher, 6 anti-drool balls, power adapter + battery, 7-Day Self-Reload Protocol video, and the \"Exhaustion Trap\" guide." } },
+        "a3": { "type": "acordeon", "settings": { "titulo": "Warranty", "contenido": "12–24 month extended warranty on the motor. Sustained-duty DC motor, not a toy-grade motor." } }
       },
-      "block_order": ["c1", "c2", "c3"],
+      "block_order": ["c1", "c2", "c3", "a1", "a2", "a3"],
       "settings": {}
     },
-    "mecanismo": {
-      "type": "ol-mecanismo",
+    "lockup": {
+      "type": "ol-lockup",
+      "settings": {
+        "nombre": "DrySpin™",
+        "claim": "Not luck. Engineering."
+      }
+    },
+    "beneficio-1": {
+      "type": "ol-beneficio-alterno",
+      "settings": {
+        "imagen_derecha": false,
+        "titulo": "Smells like nothing works? This grips everything.",
+        "credencial": "ENGINEERED FOR HIGH-ENERGY DOGS",
+        "parrafo": "Dual textured flywheels grip the soggiest tennis ball without slipping, jamming, or stalling out — even after hours of nonstop fetch.",
+        "bullets": "Grips wet, muddy, or slobbery balls\nNo jamming, no stalling\nBuilt to run all afternoon",
+        "boton_texto": "See how DrySpin™ works",
+        "boton_enlace": "#faqs"
+      }
+    },
+    "beneficio-2": {
+      "type": "ol-beneficio-alterno",
+      "settings": {
+        "imagen_derecha": true,
+        "titulo": "Industrial motor. Not a toy motor.",
+        "credencial": "SUSTAINED-DUTY DC MOTOR",
+        "parrafo": "Most launchers use toy-grade motors that overheat and die within weeks. OffLeash runs on a sustained-duty motor built for hours of continuous play.",
+        "bullets": "Rated for all-day backyard sessions\n12–24 month extended warranty\nNo overheating shutdowns",
+        "boton_texto": "Check the specs",
+        "boton_enlace": "#faqs"
+      }
+    },
+    "confianza-barra": {
+      "type": "ol-confianza-barra",
       "blocks": {
-        "m1": { "type": "prueba", "settings": { "icono": "💧", "titulo": "Ruedas anti-babas", "texto": "Ruedas de inercia duales texturizadas: tracción implacable sobre la pelota más empapada." } },
-        "m2": { "type": "prueba", "settings": { "icono": "⚙️", "titulo": "Resistencia industrial", "texto": "Motores de corriente continua de servicio sostenido. No motorcitos de juguete." } },
-        "m3": { "type": "prueba", "settings": { "icono": "🔇", "titulo": "No castra el juego", "texto": "Sin modo-reposo forzado que enfurece a tu perro. Funcionamiento silencioso que no lo asusta." } }
+        "t1": { "type": "item", "settings": { "icono": "🛡", "titulo": "Lab-Tested", "texto": "Independently tested for drool resistance and motor durability." } },
+        "t2": { "type": "item", "settings": { "icono": "🇺🇸", "titulo": "US-Based Support", "texto": "Real humans, real answers, within 24 hours." } },
+        "t3": { "type": "item", "settings": { "icono": "🔒", "titulo": "Secure Checkout", "texto": "Encrypted payments through Shopify's trusted checkout." } }
       },
-      "block_order": ["m1", "m2", "m3"],
+      "block_order": ["t1", "t2", "t3"],
+      "settings": { "titulo": "Trust isn't promised. It's proven." }
+    },
+    "resenas": {
+      "type": "ol-resenas",
+      "blocks": {
+        "r1": { "type": "resena", "settings": { "texto": "We ran for an hour and he'd still bounce off the walls. Now he plays for 20 minutes on his own and passes out.", "nombre": "Sarah M.", "perro": "Border Collie, 3yo" } },
+        "r2": { "type": "resena", "settings": { "texto": "I'd already wasted money on two launchers that jammed on the first slobbery ball. This one's been running 4 months, zero issues.", "nombre": "Jake R.", "perro": "Labrador, 5yo" } },
+        "r3": { "type": "resena", "settings": { "texto": "My dog is noise-sensitive and it doesn't bother her at all. Genuinely quiet.", "nombre": "Priya K.", "perro": "German Shepherd, 2yo" } },
+        "r4": { "type": "resena", "settings": { "texto": "Set it up in the backyard and my two huskies took turns for 45 minutes straight. Worth every cent.", "nombre": "Mike D.", "perro": "2x Siberian Husky" } },
+        "r5": { "type": "resena", "settings": { "texto": "Finally something that keeps up with a working dog. No more destroyed shoulder from throwing all day.", "nombre": "Lauren T.", "perro": "Malinois, 4yo" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5"],
       "settings": {}
     },
-    "comparativa": {
+    "antivillano": {
       "type": "ol-antivillano",
       "blocks": {
-        "f1": { "type": "fila", "settings": { "etiqueta": "Babas", "valor_propio": "✅ Traga la baba sin fallo", "valor_2": "⚠️ Falla con babas", "valor_3": "⚠️ Bola anti-babas aparte", "valor_4": "❌ Se atasca en minutos" } },
-        "f2": { "type": "fila", "settings": { "etiqueta": "Modo reposo", "valor_propio": "✅ Sin límite, no castra el juego", "valor_2": "⚠️ Se apaga a los 30 min", "valor_3": "⚠️ Pensado para bolas pequeñas", "valor_4": "❌ Durabilidad dudosa" } },
-        "f3": { "type": "fila", "settings": { "etiqueta": "Garantía", "valor_propio": "✅ Reto de la Baba — 90 días", "valor_2": "Garantía estándar", "valor_3": "Garantía estándar", "valor_4": "❌ Sin garantía real" } }
+        "f1": { "type": "fila", "settings": { "etiqueta": "Drool-proof", "valor_propio": "✅", "valor_2": "❌", "valor_3": "N/A" } },
+        "f2": { "type": "fila", "settings": { "etiqueta": "Tires the dog for real", "valor_propio": "✅", "valor_2": "⚠️ Sometimes", "valor_3": "⚠️ Depends on staff" } },
+        "f3": { "type": "fila", "settings": { "etiqueta": "Hands-free", "valor_propio": "✅", "valor_2": "✅", "valor_3": "❌" } },
+        "f4": { "type": "fila", "settings": { "etiqueta": "Indoor + outdoor", "valor_propio": "✅", "valor_2": "⚠️ Outdoor only", "valor_3": "❌" } },
+        "f5": { "type": "fila", "settings": { "etiqueta": "Quiet", "valor_propio": "✅", "valor_2": "⚠️ Loud sensor", "valor_3": "N/A" } },
+        "f6": { "type": "fila", "settings": { "etiqueta": "Battery + plug-in", "valor_propio": "✅", "valor_2": "⚠️ Battery only", "valor_3": "N/A" } },
+        "f7": { "type": "fila", "settings": { "etiqueta": "Durable motor", "valor_propio": "✅", "valor_2": "❌", "valor_3": "N/A" } },
+        "f8": { "type": "fila", "settings": { "etiqueta": "No training curve", "valor_propio": "✅", "valor_2": "✅", "valor_3": "✅" } },
+        "f9": { "type": "fila", "settings": { "etiqueta": "One-time cost", "valor_propio": "✅", "valor_2": "✅", "valor_3": "❌ ~$700/mo" } },
+        "f10": { "type": "fila", "settings": { "etiqueta": "90-day guarantee", "valor_propio": "✅", "valor_2": "❌", "valor_3": "❌" } },
+        "f11": { "type": "fila", "settings": { "etiqueta": "Keeps working dogs busy", "valor_propio": "✅", "valor_2": "⚠️ Jams quickly", "valor_3": "⚠️ Limited hours" } },
+        "f12": { "type": "fila", "settings": { "etiqueta": "Honest about limits", "valor_propio": "✅", "valor_2": "❌", "valor_3": "❌" } }
       },
-      "block_order": ["f1", "f2", "f3"],
-      "settings": { "color_fondo": "#F1EBDD" }
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"],
+      "settings": {
+        "eyebrow": "NO SPIN",
+        "titulo": "Why choose OffLeash",
+        "cuerpo": "We compared it head-to-head, no exaggeration.",
+        "columna_propia": "OffLeash",
+        "columna_2": "Cheap launcher",
+        "columna_3": "Doggy daycare"
+      }
     },
-    "oferta": {
-      "type": "ol-oferta",
-      "blocks": {
-        "i1": { "type": "item", "settings": { "nombre": "Lanzador OffLeash", "funcion": "El núcleo: cansa a tu perro de verdad", "valor": "99 €" } },
-        "i2": { "type": "item", "settings": { "nombre": "Pack de pelotas anti-babas (x6)", "funcion": "Prueba que el mecanismo las traga", "valor": "29 €" } },
-        "i3": { "type": "item", "settings": { "nombre": "Protocolo Auto-Recarga en 7 Días", "funcion": "Vídeo guiado: tu perro aprende a recargarlo", "valor": "49 €" } },
-        "i4": { "type": "item", "settings": { "nombre": "Guía \"La Trampa del Agotamiento\"", "funcion": "El plan de saciedad completo", "valor": "39 €" } },
-        "i5": { "type": "item", "settings": { "nombre": "Adaptador CA + batería de alta capacidad", "funcion": "Juego ilimitado, sin cambiar pilas", "valor": "25 €" } },
-        "i6": { "type": "item", "settings": { "nombre": "Garantía extendida \"A Prueba de Vida Canina\"", "funcion": "12–24 meses de tranquilidad", "valor": "59 €" } }
-      },
-      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6"],
-      "settings": { "color_fondo": "#FFFFFF" }
-    },
-    "permiso": {
-      "type": "ol-permiso",
-      "blocks": {
-        "r1": { "type": "testimonio", "settings": { "cita": "Corríamos una hora y seguía rebotando en las paredes. Ahora juega 20 minutos solo y se desploma.", "autor": "Marta", "contexto": "Border Collie, teletrabajadora" } },
-        "r2": { "type": "testimonio", "settings": { "cita": "Ya había tirado dinero en dos lanzadores que se atascaron con la primera baba. Este lleva 4 meses sin fallar.", "autor": "Javier", "contexto": "Labrador de 3 años" } },
-        "r3": { "type": "testimonio", "settings": { "cita": "Lo mejor: no le asusta el ruido. Mi perro es miedoso y lo usa desde el primer día sin problema.", "autor": "Carla", "contexto": "Pastor Alemán" } }
-      },
-      "block_order": ["r1", "r2", "r3"],
-      "settings": { "titulo": "Lo que dicen los que ya rompieron la trampa" }
-    },
-    "faq": {
+    "honestidad": {
       "type": "ol-honestidad",
       "blocks": {
-        "q1": { "type": "pregunta", "settings": { "pregunta": "¿Se atascará con la baba de mi perro?", "respuesta": "Es la objeción número uno, y la entendemos: mató a tus lanzadores anteriores. Por eso existe el Reto de la Baba — si el motor se atasca una sola vez en 90 días, te devolvemos cada céntimo y te quedas con las pelotas." } },
-        "q2": { "type": "pregunta", "settings": { "pregunta": "¿Mi perro aprenderá a recargarlo solo?", "respuesta": "Con honestidad: requiere un breve entrenamiento, no es magia instantánea. Por eso incluimos el Protocolo Auto-Recarga en 7 Días, un vídeo guiado paso a paso." } },
-        "q3": { "type": "pregunta", "settings": { "pregunta": "Mi perro es de pastoreo, ¿se plantará frente al lanzador?", "respuesta": "Puede pasar — algunas razas de pastoreo tienden a plantarse frente al cañón por instinto. No prometemos magia: te explicamos el work-around exacto en la guía incluida." } },
-        "q4": { "type": "pregunta", "settings": { "pregunta": "Ya tiré dinero en otro lanzador que falló. ¿Por qué confiar ahora?", "respuesta": "No pagas si falla. Es así de simple: toda la inversión del riesgo es nuestra, no tuya." } }
+        "q1": { "type": "pregunta", "settings": { "pregunta": "Will it jam on my dog's drool?", "respuesta": "That's the #1 question we get, because it's the reason your last launcher died. That's why we back it with the 90-Day Drool Challenge — if the motor jams even once in 90 days, you get every cent back, and you keep the balls." } },
+        "q2": { "type": "pregunta", "settings": { "pregunta": "Will it break after a few weeks?", "respuesta": "It runs on sustained-duty DC motors, not toy-grade motors. It also ships with an extended 12–24 month warranty. This isn't a fragile novelty — it's a tool you buy once." } },
+        "q3": { "type": "pregunta", "settings": { "pregunta": "Will the noise scare my dog?", "respuesta": "It runs quiet — no beeping sensor or loud motor sound like some other brands. If your dog is still uneasy, our tranquility guarantee covers a full refund." } },
+        "q4": { "type": "pregunta", "settings": { "pregunta": "Will my dog learn to reload it on their own?", "respuesta": "Honestly: it takes a little training, it's not instant magic. That's why every order includes the 7-Day Self-Reload Protocol, a step-by-step video guide." } },
+        "q5": { "type": "pregunta", "settings": { "pregunta": "My dog is a herding breed — will they block the sensor?", "respuesta": "It can happen — some herding breeds instinctively plant themselves in front of the launcher. We won't promise magic: the included guide walks you through the exact workaround." } },
+        "q6": { "type": "pregunta", "settings": { "pregunta": "I already wasted money on a launcher that failed. Why trust this one?", "respuesta": "You don't pay if it fails. It's that simple — all the risk is on us, not you." } },
+        "q7": { "type": "pregunta", "settings": { "pregunta": "Is it a shortcut for actually walking my dog?", "respuesta": "It's a supplement, not a replacement — think of it as extra, hands-free exercise on top of your normal routine, for the days your dog has more energy than you do." } }
       },
-      "block_order": ["q1", "q2", "q3", "q4"],
-      "settings": {}
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "settings": {
+        "eyebrow": "NO SPIN, JUST FACTS",
+        "titulo": "Frequently asked questions",
+        "cuerpo": "We'd rather tell you the truth before you buy than after."
+      }
     }
   },
-  "order": ["principal", "mecanismo", "comparativa", "oferta", "permiso", "faq"]
+  "order": ["principal", "lockup", "beneficio-1", "beneficio-2", "confianza-barra", "resenas", "antivillano", "honestidad"]
 }

@@ -23,7 +23,7 @@
       {%- if product.media.size > 1 -%}
         <div class="ol-prod-miniaturas">
           {%- for media in product.media -%}
-            <button type="button" class="ol-prod-miniatura {% if forloop.first %}ol-prod-miniatura-activa{% endif %}" data-ol-imagen-grande="{{ media | image_url: width: 1200 }}" aria-label="{{ 'Ver imagen' }} {{ forloop.index }}">
+            <button type="button" class="ol-prod-miniatura {% if forloop.first %}ol-prod-miniatura-activa{% endif %}" data-ol-imagen-grande="{{ media | image_url: width: 1200 }}" aria-label="View image {{ forloop.index }}">
               <img src="{{ media | image_url: width: 200 }}" alt="{{ media.alt | default: product.title | escape }}" loading="lazy">
             </button>
           {%- endfor -%}
@@ -34,6 +34,13 @@
     <div class="ol-prod-compra ol-reveal ol-reveal-1">
       {%- if section.settings.eyebrow != blank -%}<p class="ol-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h1 class="ol-h1 ol-prod-titulo">{{ product.title }}</h1>
+
+      {%- if section.settings.mostrar_valoracion -%}
+        <div class="ol-prod-valoracion">
+          <span class="ol-prod-valoracion-estrellas">★★★★★</span>
+          <span class="ol-prod-valoracion-texto">{{ section.settings.valoracion_texto }}</span>
+        </div>
+      {%- endif -%}
 
       <div class="ol-prod-precio">
         <span class="ol-prod-precio-actual" id="ol-prod-precio-actual-{{ section.id }}">{{ product.selected_or_first_available_variant.price | money }}</span>
@@ -76,16 +83,25 @@
           </div>
         {%- endunless -%}
 
-        <button type="submit" name="add" class="ol-btn ol-btn-primario ol-prod-boton" id="ol-prod-boton-{{ section.id }}"
-          data-texto-disponible="{{ section.settings.boton_texto | escape }}"
-          data-texto-agotado="{{ section.settings.boton_agotado | escape }}"
-          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
-          {%- if product.selected_or_first_available_variant.available == false -%}
-            {{ section.settings.boton_agotado }}
-          {%- else -%}
-            {{ section.settings.boton_texto }}
+        <div class="ol-prod-compra-fila">
+          {%- if section.settings.mostrar_cantidad -%}
+            <div class="ol-prod-cantidad" data-ol-cantidad>
+              <button type="button" class="ol-prod-cantidad-btn" data-ol-cantidad-menos aria-label="Decrease quantity">−</button>
+              <input type="number" name="quantity" value="1" min="1" class="ol-prod-cantidad-input" data-ol-cantidad-input aria-label="Quantity">
+              <button type="button" class="ol-prod-cantidad-btn" data-ol-cantidad-mas aria-label="Increase quantity">+</button>
+            </div>
           {%- endif -%}
-        </button>
+          <button type="submit" name="add" class="ol-btn ol-btn-primario ol-prod-boton" id="ol-prod-boton-{{ section.id }}"
+            data-texto-disponible="{{ section.settings.boton_texto | escape }}"
+            data-texto-agotado="{{ section.settings.boton_agotado | escape }}"
+            {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+            {%- if product.selected_or_first_available_variant.available == false -%}
+              {{ section.settings.boton_agotado }}
+            {%- else -%}
+              {{ section.settings.boton_texto }}
+            {%- endif -%}
+          </button>
+        </div>
       {% endform %}
 
       <div class="ol-prod-confianza">
@@ -101,6 +117,25 @@
 
       {%- if section.settings.garantia_texto != blank -%}
         <div class="ol-badge ol-prod-garantia-badge">{{ section.settings.garantia_texto }}</div>
+      {%- endif -%}
+
+      {%- assign acordeon_blocks = section.blocks | where: 'type', 'acordeon' -%}
+      {%- if acordeon_blocks.size > 0 -%}
+        <div class="ol-prod-acordeon">
+          {%- for block in acordeon_blocks -%}
+            <div class="ol-faq-item" data-abierto="false" {{ block.shopify_attributes }}>
+              <button type="button" class="ol-faq-pregunta" aria-expanded="false">
+                <span>{{ block.settings.titulo }}</span>
+                <span class="ol-faq-icono">+</span>
+              </button>
+              <div class="ol-faq-respuesta">
+                <div class="ol-faq-respuesta-interior">
+                  <p class="ol-body">{{ block.settings.contenido | newline_to_br }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
       {%- endif -%}
     </div>
   </div>
@@ -151,7 +186,10 @@
   #shopify-section-{{ section.id }} .ol-prod-miniatura { width: 68px; height: 68px; border-radius: 4px; overflow: hidden; border: 2px solid transparent; padding: 0; cursor: pointer; background: none; }
   #shopify-section-{{ section.id }} .ol-prod-miniatura img { width: 100%; height: 100%; object-fit: cover; display: block; }
   #shopify-section-{{ section.id }} .ol-prod-miniatura-activa { border-color: var(--ol-dorado); }
-  #shopify-section-{{ section.id }} .ol-prod-titulo { margin: 10px 0 16px; font-size: 34px; }
+  #shopify-section-{{ section.id }} .ol-prod-titulo { margin: 10px 0 12px; font-size: 34px; }
+  #shopify-section-{{ section.id }} .ol-prod-valoracion { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .ol-prod-valoracion-estrellas { color: var(--ol-dorado); letter-spacing: 1px; }
+  #shopify-section-{{ section.id }} .ol-prod-valoracion-texto { font-size: 13px; color: var(--ol-texto-suave); }
   #shopify-section-{{ section.id }} .ol-prod-precio { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
   #shopify-section-{{ section.id }} .ol-prod-precio-actual { font-family: var(--ol-fuente); font-weight: 800; font-size: 28px; color: var(--ol-verde); }
   #shopify-section-{{ section.id }} .ol-prod-precio-anterior { text-decoration: line-through; color: var(--ol-texto-suave); font-size: 18px; }
@@ -162,13 +200,20 @@
   #shopify-section-{{ section.id }} .ol-prod-opcion-valores { display: flex; gap: 8px; flex-wrap: wrap; }
   #shopify-section-{{ section.id }} .ol-prod-pastilla { padding: 9px 18px; border-radius: 999px; border: 1.5px solid var(--ol-linea); background: var(--ol-blanco); cursor: pointer; font-size: 14px; }
   #shopify-section-{{ section.id }} .ol-prod-pastilla-activa { border-color: var(--ol-verde); background: var(--ol-verde); color: var(--ol-crema); }
-  #shopify-section-{{ section.id }} .ol-prod-boton { width: 100%; margin-bottom: 22px; }
+  #shopify-section-{{ section.id }} .ol-prod-compra-fila { display: flex; gap: 12px; margin-bottom: 22px; }
+  #shopify-section-{{ section.id }} .ol-prod-cantidad { display: flex; align-items: center; border: 1.5px solid var(--ol-linea); border-radius: 4px; flex-shrink: 0; }
+  #shopify-section-{{ section.id }} .ol-prod-cantidad-btn { width: 40px; height: 48px; border: none; background: none; cursor: pointer; font-size: 18px; color: var(--ol-texto); }
+  #shopify-section-{{ section.id }} .ol-prod-cantidad-input { width: 40px; height: 48px; border: none; text-align: center; font-size: 15px; -moz-appearance: textfield; background: none; color: var(--ol-texto); }
+  #shopify-section-{{ section.id }} .ol-prod-cantidad-input::-webkit-outer-spin-button,
+  #shopify-section-{{ section.id }} .ol-prod-cantidad-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  #shopify-section-{{ section.id }} .ol-prod-compra-fila .ol-prod-boton { width: auto; flex: 1; margin-bottom: 0; }
   #shopify-section-{{ section.id }} .ol-prod-boton:disabled { opacity: 0.5; cursor: not-allowed; }
   #shopify-section-{{ section.id }} .ol-prod-boton:disabled:hover { transform: none; }
   #shopify-section-{{ section.id }} .ol-prod-confianza { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
   #shopify-section-{{ section.id }} .ol-prod-confianza-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ol-texto-suave); }
   #shopify-section-{{ section.id }} .ol-prod-confianza-icono { font-size: 18px; }
-  #shopify-section-{{ section.id }} .ol-prod-garantia-badge { display: inline-flex; }
+  #shopify-section-{{ section.id }} .ol-prod-garantia-badge { display: inline-flex; margin-bottom: 8px; }
+  #shopify-section-{{ section.id }} .ol-prod-acordeon { margin-top: 12px; border-top: 1px solid var(--ol-linea); }
   #shopify-section-{{ section.id }} .ol-prod-descripcion { max-width: 860px; margin: 0 auto; padding-bottom: 48px; }
   #shopify-section-{{ section.id }} .ol-prod-intro { font-size: 18px; margin-bottom: 32px; }
   #shopify-section-{{ section.id }} .ol-prod-caracteristicas { margin-bottom: 32px; }
@@ -185,41 +230,55 @@
 
 {% schema %}
 {
-  "name": "Producto OffLeash",
+  "name": "Product",
   "tag": "section",
   "settings": [
-    { "type": "color", "id": "color_fondo", "label": "Color de fondo", "default": "#FFFFFF" },
-    { "type": "text", "id": "eyebrow", "label": "Texto pequeño superior", "default": "HERRAMIENTA DE SUSTITUCIÓN ATLÉTICA" },
-    { "type": "text", "id": "subtitulo", "label": "Subtítulo bajo el precio", "default": "Cánsalo de verdad en 20 minutos al día — sin mover un brazo, sin culpa." },
-    { "type": "text", "id": "boton_texto", "label": "Texto del botón (disponible)", "default": "Quiero el mío" },
-    { "type": "text", "id": "boton_agotado", "label": "Texto del botón (agotado)", "default": "Agotado por ahora" },
-    { "type": "text", "id": "garantia_texto", "label": "Insignia de garantía", "default": "🛡 Reto de la Baba — 90 días" },
-    { "type": "header", "content": "Descripción" },
-    { "type": "textarea", "id": "intro", "label": "Párrafo de introducción", "default": "No es un juguete que lanza la pelota por ti. Es la herramienta que por fin cansa a tu perro de verdad, a prueba de babas y sin castrar su juego." },
-    { "type": "textarea", "id": "caracteristicas", "label": "Características (una por línea, formato: Título::Texto)", "default": "A prueba de babas::Tracción implacable incluso con la pelota más sucia.\nResistencia industrial::Motores de servicio sostenido, no motorcitos de juguete.\nNo castra el juego::Sin modo-reposo forzado ni sonidos que asusten a tu perro." },
-    { "type": "text", "id": "incluye_titulo", "label": "Título de \"qué incluye\"", "default": "Qué incluye" },
-    { "type": "textarea", "id": "incluye", "label": "Qué incluye (un ítem por línea)", "default": "1 lanzador OffLeash\n6 pelotas anti-babas\nAdaptador de corriente + batería\nProtocolo Auto-Recarga en 7 Días (vídeo)\nGuía \"La Trampa del Agotamiento\"" },
-    { "type": "header", "content": "Espaciado" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 },
-    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 }
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#FFFFFF" },
+    { "type": "text", "id": "eyebrow", "label": "Small text above title", "default": "ATHLETIC REPLACEMENT TOOL" },
+    { "type": "checkbox", "id": "mostrar_valoracion", "label": "Show star rating", "default": true },
+    { "type": "text", "id": "valoracion_texto", "label": "Rating text", "default": "4.7 (312 reviews)" },
+    { "type": "text", "id": "subtitulo", "label": "Subtitle under the price", "default": "Tire them out for real in 20 minutes a day — powered by DrySpin™, our drool-proof anti-jam engine." },
+    { "type": "checkbox", "id": "mostrar_cantidad", "label": "Show quantity selector", "default": true },
+    { "type": "text", "id": "boton_texto", "label": "Button text (in stock)", "default": "Add to cart" },
+    { "type": "text", "id": "boton_agotado", "label": "Button text (sold out)", "default": "Sold out for now" },
+    { "type": "text", "id": "garantia_texto", "label": "Guarantee badge", "default": "🛡 90-Day Drool Challenge" },
+    { "type": "header", "content": "Description" },
+    { "type": "textarea", "id": "intro", "label": "Intro paragraph", "default": "It's not a toy that throws the ball for you. It's the tool that finally tires your dog out for real — drool-proof, without cutting the fun short." },
+    { "type": "textarea", "id": "caracteristicas", "label": "Features (one per line, format: Title::Text)", "default": "Drool-proof::Relentless grip even on the muddiest, soggiest ball.\nIndustrial durability::Sustained-duty motors, not toy-grade motors.\nWon't cut the fun short::No forced sleep-mode, no sounds that startle your dog." },
+    { "type": "text", "id": "incluye_titulo", "label": "\"What's included\" title", "default": "What's included" },
+    { "type": "textarea", "id": "incluye", "label": "What's included (one item per line)", "default": "1 OffLeash launcher\n6 anti-drool balls\nPower adapter + battery\n7-Day Self-Reload Protocol (video)\n\"Exhaustion Trap\" guide" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 0 }
   ],
   "blocks": [
     {
       "type": "confianza",
-      "name": "Fila de confianza",
+      "name": "Trust row item",
       "settings": [
-        { "type": "text", "id": "icono", "label": "Icono (emoji)", "default": "🚚" },
-        { "type": "text", "id": "texto", "label": "Texto", "default": "Envío en 2-4 días laborables" }
+        { "type": "text", "id": "icono", "label": "Icon (emoji)", "default": "🚚" },
+        { "type": "text", "id": "texto", "label": "Text", "default": "Ships in 2-4 business days" }
+      ]
+    },
+    {
+      "type": "acordeon",
+      "name": "Accordion item",
+      "settings": [
+        { "type": "text", "id": "titulo", "label": "Title", "default": "Shipping & Returns" },
+        { "type": "textarea", "id": "contenido", "label": "Content", "default": "Ships within 2-4 business days from our US warehouse. Covered by our 90-Day Drool Challenge — full refund if the motor ever jams." }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Producto OffLeash",
+      "name": "Product",
       "blocks": [
-        { "type": "confianza", "settings": { "icono": "🚚", "texto": "Envío en 2-4 días laborables" } },
-        { "type": "confianza", "settings": { "icono": "🔒", "texto": "Pago 100% seguro" } },
-        { "type": "confianza", "settings": { "icono": "↩️", "texto": "Reto de la Baba: 90 días o te devolvemos todo" } }
+        { "type": "confianza", "settings": { "icono": "🚚", "texto": "Ships in 2-4 business days" } },
+        { "type": "confianza", "settings": { "icono": "🔒", "texto": "100% secure payment" } },
+        { "type": "confianza", "settings": { "icono": "↩️", "texto": "90-Day Drool Challenge — full refund" } },
+        { "type": "acordeon", "settings": { "titulo": "Shipping & Returns", "contenido": "Ships within 2-4 business days from our US warehouse. Covered by our 90-Day Drool Challenge — full refund if the motor ever jams." } },
+        { "type": "acordeon", "settings": { "titulo": "What's in the box", "contenido": "1 OffLeash launcher, 6 anti-drool balls, power adapter + battery, 7-Day Self-Reload Protocol video, and the \"Exhaustion Trap\" guide." } },
+        { "type": "acordeon", "settings": { "titulo": "Warranty", "contenido": "12–24 month extended warranty on the motor. Sustained-duty DC motor, not a toy-grade motor." } }
       ]
     }
   ]
