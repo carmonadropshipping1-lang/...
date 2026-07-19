@@ -1,0 +1,45 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.color_fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  #shopify-section-{{ section.id }} .ol-lockup-nombre { font-size: {{ section.settings.tamano_nombre }}px; }
+{% endstyle %}
+
+<section class="ol-section ol-lockup">
+  <div class="ol-container ol-lockup-wrap ol-reveal">
+    {%- if section.settings.imagen != blank -%}
+      <img src="{{ section.settings.imagen | image_url: width: 400 }}" alt="{{ section.settings.nombre | escape }}" class="ol-lockup-imagen" loading="lazy">
+    {%- endif -%}
+    <p class="ol-lockup-nombre">{{ section.settings.nombre }}</p>
+    {%- if section.settings.claim != blank -%}<p class="ol-lockup-claim">{{ section.settings.claim }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-lockup-wrap { text-align: center; }
+  #shopify-section-{{ section.id }} .ol-lockup-imagen { max-width: 64px; margin: 0 auto 18px; display: block; }
+  #shopify-section-{{ section.id }} .ol-lockup-nombre { font-family: var(--ol-fuente); font-weight: 800; letter-spacing: -0.01em; color: var(--ol-verde); margin: 0 0 10px; }
+  #shopify-section-{{ section.id }} .ol-lockup-claim { font-size: 15px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ol-texto-suave); }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Mechanism lockup",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#F1EBDD" },
+    { "type": "image_picker", "id": "imagen", "label": "Small mark/logo (optional)" },
+    { "type": "text", "id": "nombre", "label": "Mechanism name", "default": "DrySpin™" },
+    { "type": "text", "id": "claim", "label": "Claim", "default": "Not luck. Engineering." },
+    { "type": "range", "id": "tamano_nombre", "label": "Name size (px)", "min": 28, "max": 64, "step": 2, "unit": "px", "default": 44 },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 56 }
+  ],
+  "presets": [ { "name": "Mechanism lockup" } ]
+}
+{% endschema %}

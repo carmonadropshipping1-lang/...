@@ -1,0 +1,85 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.color_fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<section class="ol-section ol-galeria-video">
+  <div class="ol-container">
+    <div class="ol-galeria-video-cabecera ol-reveal">
+      {%- if section.settings.titulo != blank -%}<h2 class="ol-h2">{{ section.settings.titulo }}</h2>{%- endif -%}
+      {%- if section.settings.subtitulo != blank -%}
+        {%- if section.settings.instagram_url != blank -%}
+          <a href="{{ section.settings.instagram_url }}" class="ol-body ol-galeria-video-subtitulo" target="_blank" rel="noopener">{{ section.settings.subtitulo }}</a>
+        {%- else -%}
+          <p class="ol-body ol-galeria-video-subtitulo">{{ section.settings.subtitulo }}</p>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    <div class="ol-galeria-video-carrusel ol-reveal ol-reveal-1">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'video' -%}
+          <div class="ol-galeria-video-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.video_url != blank -%}
+              <video src="{{ block.settings.video_url }}" poster="{% if block.settings.portada != blank %}{{ block.settings.portada | image_url: width: 600 }}{% endif %}" autoplay muted loop playsinline></video>
+            {%- elsif block.settings.portada != blank -%}
+              <img src="{{ block.settings.portada | image_url: width: 600 }}" alt="" loading="lazy">
+            {%- else -%}
+              <div class="ol-placeholder" style="aspect-ratio:9/16;"><span>OffLeash</span></div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-galeria-video-cabecera { text-align: center; margin-bottom: 32px; }
+  #shopify-section-{{ section.id }} .ol-galeria-video-subtitulo { color: var(--ol-verde); font-weight: 700; text-decoration: none; }
+  #shopify-section-{{ section.id }} .ol-galeria-video-carrusel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+  #shopify-section-{{ section.id }} .ol-galeria-video-item { flex: 0 0 200px; aspect-ratio: 9/16; border-radius: 6px; overflow: hidden; scroll-snap-align: start; background: var(--ol-crema-2); }
+  #shopify-section-{{ section.id }} .ol-galeria-video-item video, #shopify-section-{{ section.id }} .ol-galeria-video-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "UGC video gallery",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#FFFFFF" },
+    { "type": "text", "id": "titulo", "label": "Title", "default": "The OffLeash pack" },
+    { "type": "text", "id": "subtitulo", "label": "Subtitle / Instagram link text", "default": "Join us on Instagram" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram link" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "image_picker", "id": "portada", "label": "Cover image / poster" },
+        { "type": "url", "id": "video_url", "label": "Video URL (mp4, optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC video gallery",
+      "blocks": [
+        { "type": "video", "settings": {} },
+        { "type": "video", "settings": {} },
+        { "type": "video", "settings": {} },
+        { "type": "video", "settings": {} },
+        { "type": "video", "settings": {} }
+      ]
+    }
+  ]
+}
+{% endschema %}

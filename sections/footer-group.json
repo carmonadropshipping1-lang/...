@@ -23,7 +23,7 @@
         "legales": {
           "type": "link_list",
           "settings": {
-            "heading": "Legal",
+            "heading": "Pages",
             "menu": "footer"
           }
         }
@@ -31,8 +31,8 @@
       "block_order": ["brand", "legales"],
       "settings": {
         "color_scheme": "scheme-3",
-        "newsletter_enable": false,
-        "newsletter_heading": "Únete a la manada",
+        "newsletter_enable": true,
+        "newsletter_heading": "<strong>Tips for tiring out high-energy dogs</strong> — straight to your inbox.",
         "enable_follow_on_shop": false,
         "show_social": true,
         "enable_country_selector": false,
@@ -43,9 +43,16 @@
         "padding_top": 56,
         "padding_bottom": 36
       }
+    },
+    "whatsapp": {
+      "type": "ol-whatsapp",
+      "settings": {
+        "mensaje": "Hi! I have a question about the OffLeash launcher."
+      }
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "whatsapp"
   ]
 }

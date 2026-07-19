@@ -25,7 +25,6 @@
             <th class="ol-av-th-destacado">{{ section.settings.columna_propia | default: 'OffLeash' }}</th>
             <th>{{ section.settings.columna_2 }}</th>
             <th>{{ section.settings.columna_3 }}</th>
-            <th>{{ section.settings.columna_4 }}</th>
           </tr>
         </thead>
         <tbody>
@@ -36,7 +35,6 @@
                 <td class="ol-av-td-destacado">{{ block.settings.valor_propio }}</td>
                 <td>{{ block.settings.valor_2 }}</td>
                 <td>{{ block.settings.valor_3 }}</td>
-                <td>{{ block.settings.valor_4 }}</td>
               </tr>
             {%- endif -%}
           {%- endfor -%}
@@ -50,61 +48,70 @@
   #shopify-section-{{ section.id }} .ol-av-intro { max-width: 680px; margin: 0 auto 44px; text-align: center; }
   #shopify-section-{{ section.id }} .ol-av-titulo { margin: 12px 0 14px; }
   #shopify-section-{{ section.id }} .ol-av-tabla-wrap { overflow-x: auto; }
-  #shopify-section-{{ section.id }} .ol-av-tabla { width: 100%; min-width: 720px; border-collapse: collapse; }
+  #shopify-section-{{ section.id }} .ol-av-tabla { width: 100%; min-width: 620px; border-collapse: collapse; }
   #shopify-section-{{ section.id }} .ol-av-tabla th, #shopify-section-{{ section.id }} .ol-av-tabla td {
-    padding: 18px 16px; text-align: left; border-bottom: 1px solid var(--ol-linea); font-size: 15px; vertical-align: top;
+    padding: 15px 14px; text-align: left; border-bottom: 1px solid var(--ol-linea); font-size: 14.5px; vertical-align: middle;
   }
-  #shopify-section-{{ section.id }} .ol-av-tabla thead th { font-family: var(--ol-fuente); font-weight: 700; font-size: 15px; color: var(--ol-texto-suave); }
-  #shopify-section-{{ section.id }} .ol-av-tabla tbody th { font-weight: 700; color: var(--ol-texto); white-space: nowrap; }
+  #shopify-section-{{ section.id }} .ol-av-tabla thead th { font-family: var(--ol-fuente); font-weight: 700; font-size: 14px; color: var(--ol-texto-suave); }
+  #shopify-section-{{ section.id }} .ol-av-tabla tbody th {
+    font-weight: 700; color: var(--ol-texto); white-space: nowrap;
+    position: sticky; left: 0; background: {{ section.settings.color_fondo }}; z-index: 1;
+  }
+  #shopify-section-{{ section.id }} .ol-av-th-vacio { position: sticky; left: 0; background: {{ section.settings.color_fondo }}; z-index: 1; }
   #shopify-section-{{ section.id }} .ol-av-th-destacado, #shopify-section-{{ section.id }} .ol-av-td-destacado {
     background: rgba(27, 67, 50, 0.06); border-left: 2px solid var(--ol-verde); border-right: 2px solid var(--ol-verde);
-    font-weight: 700; color: var(--ol-verde);
+    font-weight: 700; color: var(--ol-verde); text-align: center;
   }
-  #shopify-section-{{ section.id }} thead .ol-av-th-destacado { border-top: 2px solid var(--ol-verde); color: var(--ol-verde); font-size: 16px; }
+  #shopify-section-{{ section.id }} thead .ol-av-th-destacado { border-top: 2px solid var(--ol-verde); color: var(--ol-verde); font-size: 15px; }
   #shopify-section-{{ section.id }} tbody tr:last-child .ol-av-td-destacado { border-bottom: 2px solid var(--ol-verde); }
 {% endstyle %}
 
 {% schema %}
 {
-  "name": "Comparativa honesta",
+  "name": "Comparison table",
   "tag": "section",
   "settings": [
-    { "type": "color", "id": "color_fondo", "label": "Color de fondo", "default": "#FAF7F0" },
-    { "type": "text", "id": "eyebrow", "label": "Texto pequeño superior", "default": "SIN RODEOS" },
-    { "type": "text", "id": "titulo", "label": "Título", "default": "No es otro lanzador que se atasca en cinco minutos." },
-    { "type": "textarea", "id": "cuerpo", "label": "Texto", "default": "Comparamos de frente, sin exagerar. Esto es lo que dicen las reseñas reales de cada categoría." },
-    { "type": "header", "content": "Columnas de la tabla" },
-    { "type": "text", "id": "columna_propia", "label": "Columna propia", "default": "OffLeash" },
-    { "type": "text", "id": "columna_2", "label": "Columna 2", "default": "PetSafe" },
-    { "type": "text", "id": "columna_3", "label": "Columna 3", "default": "iFetch" },
-    { "type": "text", "id": "columna_4", "label": "Columna 4", "default": "Clones ~40€" },
-    { "type": "header", "content": "Espaciado" },
-    { "type": "range", "id": "padding_top", "label": "Espacio superior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
-    { "type": "range", "id": "padding_bottom", "label": "Espacio inferior (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
-    { "type": "range", "id": "tamano_titulo", "label": "Tamaño del título (px)", "min": 24, "max": 56, "step": 2, "unit": "px", "default": 38 }
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#FAF7F0" },
+    { "type": "text", "id": "eyebrow", "label": "Small text above title", "default": "NO SPIN" },
+    { "type": "text", "id": "titulo", "label": "Title", "default": "Why choose OffLeash" },
+    { "type": "textarea", "id": "cuerpo", "label": "Text", "default": "We compared it head-to-head, no exaggeration." },
+    { "type": "header", "content": "Table columns" },
+    { "type": "text", "id": "columna_propia", "label": "Your column", "default": "OffLeash" },
+    { "type": "text", "id": "columna_2", "label": "Column 2", "default": "Cheap launcher" },
+    { "type": "text", "id": "columna_3", "label": "Column 3", "default": "Doggy daycare" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 80 },
+    { "type": "range", "id": "tamano_titulo", "label": "Title size (px)", "min": 24, "max": 56, "step": 2, "unit": "px", "default": 38 }
   ],
   "blocks": [
     {
       "type": "fila",
-      "name": "Fila de comparación",
+      "name": "Comparison row",
       "settings": [
-        { "type": "text", "id": "etiqueta", "label": "Aspecto comparado", "default": "Babas" },
-        { "type": "text", "id": "valor_propio", "label": "OffLeash", "default": "✅ Traga la baba sin fallo" },
-        { "type": "text", "id": "valor_2", "label": "Columna 2", "default": "⚠️ Falla con babas" },
-        { "type": "text", "id": "valor_3", "label": "Columna 3", "default": "⚠️ Bola anti-babas aparte" },
-        { "type": "text", "id": "valor_4", "label": "Columna 4", "default": "❌ Se atasca en minutos" }
+        { "type": "text", "id": "etiqueta", "label": "Attribute", "default": "Drool-proof" },
+        { "type": "text", "id": "valor_propio", "label": "OffLeash", "default": "✅" },
+        { "type": "text", "id": "valor_2", "label": "Column 2", "default": "❌" },
+        { "type": "text", "id": "valor_3", "label": "Column 3", "default": "N/A" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Comparativa honesta",
+      "name": "Comparison table",
       "blocks": [
-        { "type": "fila", "settings": { "etiqueta": "Babas", "valor_propio": "✅ Traga la baba sin fallo", "valor_2": "⚠️ Falla con babas", "valor_3": "⚠️ Bola anti-babas aparte", "valor_4": "❌ Se atasca en minutos" } },
-        { "type": "fila", "settings": { "etiqueta": "Modo reposo", "valor_propio": "✅ Sin límite, no castra el juego", "valor_2": "⚠️ Se apaga a los 30 min", "valor_3": "⚠️ Pensado para bolas pequeñas", "valor_4": "❌ Durabilidad dudosa" } },
-        { "type": "fila", "settings": { "etiqueta": "Ruido", "valor_propio": "✅ Silencioso, no asusta", "valor_2": "⚠️ Sensor/tono que asusta", "valor_3": "— No documentado", "valor_4": "— No documentado" } },
-        { "type": "fila", "settings": { "etiqueta": "Honestidad", "valor_propio": "✅ Admite sus límites reales", "valor_2": "⚠️ Promesas sin matices", "valor_3": "⚠️ Promesas sin matices", "valor_4": "⚠️ Promesas sin matices" } },
-        { "type": "fila", "settings": { "etiqueta": "Garantía", "valor_propio": "✅ Reto de la Baba — 90 días", "valor_2": "Garantía estándar", "valor_3": "Garantía estándar", "valor_4": "❌ Sin garantía real" } }
+        { "type": "fila", "settings": { "etiqueta": "Drool-proof", "valor_propio": "✅", "valor_2": "❌", "valor_3": "N/A" } },
+        { "type": "fila", "settings": { "etiqueta": "Tires the dog for real", "valor_propio": "✅", "valor_2": "⚠️ Sometimes", "valor_3": "⚠️ Depends on staff" } },
+        { "type": "fila", "settings": { "etiqueta": "Hands-free", "valor_propio": "✅", "valor_2": "✅", "valor_3": "❌" } },
+        { "type": "fila", "settings": { "etiqueta": "Indoor + outdoor", "valor_propio": "✅", "valor_2": "⚠️ Outdoor only", "valor_3": "❌" } },
+        { "type": "fila", "settings": { "etiqueta": "Quiet", "valor_propio": "✅", "valor_2": "⚠️ Loud sensor", "valor_3": "N/A" } },
+        { "type": "fila", "settings": { "etiqueta": "Battery + plug-in", "valor_propio": "✅", "valor_2": "⚠️ Battery only", "valor_3": "N/A" } },
+        { "type": "fila", "settings": { "etiqueta": "Durable motor", "valor_propio": "✅", "valor_2": "❌", "valor_3": "N/A" } },
+        { "type": "fila", "settings": { "etiqueta": "No training curve", "valor_propio": "✅", "valor_2": "✅", "valor_3": "✅" } },
+        { "type": "fila", "settings": { "etiqueta": "One-time cost", "valor_propio": "✅", "valor_2": "✅", "valor_3": "❌ ~$700/mo" } },
+        { "type": "fila", "settings": { "etiqueta": "90-day guarantee", "valor_propio": "✅", "valor_2": "❌", "valor_3": "❌" } },
+        { "type": "fila", "settings": { "etiqueta": "Keeps working dogs busy", "valor_propio": "✅", "valor_2": "⚠️ Jams quickly", "valor_3": "⚠️ Limited hours" } },
+        { "type": "fila", "settings": { "etiqueta": "Honest about limits", "valor_propio": "✅", "valor_2": "❌", "valor_3": "❌" } }
       ]
     }
   ]

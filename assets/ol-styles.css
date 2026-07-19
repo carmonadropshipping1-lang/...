@@ -261,3 +261,9 @@
   display: flex; align-items: center; justify-content: center;
   color: rgba(250,247,240,0.35);
 }
+
+/* ---------- barra de envío gratis en el carrito ---------- */
+.ol-barra-envio { padding: 14px 20px 4px; }
+.ol-barra-envio-texto { font-size: 13px; font-weight: 700; margin: 0 0 8px; text-align: center; color: var(--ol-texto); }
+.ol-barra-envio-pista { height: 6px; border-radius: 999px; background: var(--ol-crema-2); overflow: hidden; }
+.ol-barra-envio-relleno { height: 100%; width: 0%; background: var(--ol-verde); transition: width 0.4s var(--ol-ease); }

@@ -1,0 +1,40 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.telefono != blank -%}
+  {%- assign mensaje_codificado = section.settings.mensaje | url_encode -%}
+  <a
+    href="https://wa.me/{{ section.settings.telefono }}?text={{ mensaje_codificado }}"
+    class="ol-whatsapp-flotante"
+    target="_blank"
+    rel="noopener"
+    aria-label="Chat with us on WhatsApp"
+  >
+    <span class="ol-whatsapp-icono">💬</span>
+  </a>
+
+  {% style %}
+    .ol-whatsapp-flotante {
+      position: fixed; right: 20px; bottom: 20px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25); text-decoration: none; font-size: 26px;
+      transition: transform 0.25s ease;
+    }
+    .ol-whatsapp-flotante:hover { transform: scale(1.08); }
+    @media screen and (max-width: 749px) {
+      .ol-whatsapp-flotante { right: 14px; bottom: 14px; width: 50px; height: 50px; }
+    }
+  {% endstyle %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Floating WhatsApp button",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "telefono", "label": "WhatsApp number (international, no + or spaces, e.g. 15551234567)" },
+    { "type": "textarea", "id": "mensaje", "label": "Pre-filled message", "default": "Hi! I have a question about the OffLeash launcher." }
+  ],
+  "presets": [ { "name": "Floating WhatsApp button" } ]
+}
+{% endschema %}

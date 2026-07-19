@@ -180,6 +180,52 @@
     });
   }
 
+  function initBarraEnvioGratis() {
+    var UMBRAL = 60; // free shipping threshold, in shop currency major units
+    var header = document.querySelector('#CartDrawer .drawer__header');
+    if (!header) return;
+    var barra = document.getElementById('ol-barra-envio');
+    if (!barra) {
+      barra = document.createElement('div');
+      barra.id = 'ol-barra-envio';
+      barra.className = 'ol-barra-envio';
+      barra.innerHTML = '<p class="ol-barra-envio-texto"></p><div class="ol-barra-envio-pista"><div class="ol-barra-envio-relleno"></div></div>';
+      header.insertAdjacentElement('afterend', barra);
+    }
+    fetch('/cart.js')
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        var total = cart.total_price / 100;
+        var texto = barra.querySelector('.ol-barra-envio-texto');
+        var relleno = barra.querySelector('.ol-barra-envio-relleno');
+        if (total >= UMBRAL) {
+          texto.textContent = "You've unlocked free shipping!";
+          relleno.style.width = '100%';
+        } else {
+          var restante = (UMBRAL - total).toFixed(2);
+          texto.textContent = "You're $" + restante + ' away from free shipping';
+          relleno.style.width = Math.min((total / UMBRAL) * 100, 100) + '%';
+        }
+      })
+      .catch(function () {});
+  }
+
+  function initEventosCarrito() {
+    var disparadores = ['#cart-icon-bubble', '.ol-prod-boton', '[name="add"]'];
+    disparadores.forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (el) {
+        el.addEventListener('click', function () {
+          setTimeout(initBarraEnvioGratis, 500);
+        });
+      });
+    });
+    var cartDrawerEl = document.querySelector('cart-drawer');
+    if (cartDrawerEl) {
+      new MutationObserver(function () { initBarraEnvioGratis(); }).observe(cartDrawerEl, { attributes: true, attributeFilter: ['class'] });
+    }
+    initBarraEnvioGratis();
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initReveal();
     initCifras();
@@ -188,5 +234,6 @@
     initMarquesinas();
     initGaleriaProducto();
     initSelectorVariantes();
+    initEventosCarrito();
   });
 })();

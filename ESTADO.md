@@ -397,15 +397,85 @@ vivo en español queda intacto mientras tanto.
   vídeo, tabla comparativa ampliada, FAQ con ancla, footer con newsletter,
   botón flotante de WhatsApp, carrito con barra de envío gratis).
 
-### Vista previa del checkpoint 1
+### Vista previa del checkpoint 1 (histórico, tema ya no vigente)
 `https://a8d44c-zc.myshopify.com/?preview_theme_id=188049293692`
-(recuerda: el resto de la portada bajo el hero sigue en español hasta el
-próximo checkpoint — es esperado, no es un error).
+(recuerda: el resto de la portada bajo el hero seguía en español — era
+esperado en ese momento, no un error).
+
+### Segundo evento: el checkpoint 1 también se publicó → tema v2
+El usuario indicó "lo noto igual... hazlo todo igual que las capturas y
+después te hago correcciones" — instrucción de dejar de hacer checkpoints
+y construir TODA la arquitectura de 14 secciones de una vez. Justo al
+empezar a subir esa tanda completa, el tema "OffLeash US (Claude draft)"
+(`188049293692`) apareció también publicado (rol MAIN) — el usuario lo
+había puesto en vivo desde su panel sin avisar, por segunda vez. Mismo
+procedimiento de recuperación que la primera vez: se detectó el bloqueo de
+`themeFilesUpsert` sobre tema en vivo, se confirmó el rol con
+`graphql_query`, y se duplicó con `themeDuplicate` a un tema nuevo:
+
+**Tema de trabajo actual**: **"OffLeash US v2 (Claude draft)"**,
+id `gid://shopify/OnlineStoreTheme/188049719676`, rol UNPUBLISHED
+(confirmado). Todo el trabajo de aquí en adelante va exclusivamente en
+este tema hasta nueva orden.
+
+### Arquitectura completa subida (14 secciones, inglés/USD, checkpoint único)
+Portada completa (`templates/index.json`) con el orden:
+1. `ol-hero` — Hero con imagen de fondo, insignia, titular en 3 líneas,
+   subtítulo (menciona DrySpin™), botón CTA → `#ol-shop`.
+2. `ol-announcement` (en `header-group.json`) — marquesina de anuncio.
+3. `ol-iconos` — tira de 6 iconos de beneficio (envío gratis, garantía
+   90 días, a prueba de babas, manos libres, silencioso, 4.7★).
+4. `ol-grid-productos` — grid de 3 tarjetas de producto, ancla `#ol-shop`.
+5. `ol-lockup` — nombre del mecanismo (DrySpin™) + claim centrado.
+6. `ol-beneficio-1/2/3` (sección reutilizable `ol-beneficio-alterno`) —
+   3 bloques alternos imagen/texto: agarre anti-babas, motor industrial,
+   sin apagado forzado/pitido.
+7. `ol-confianza-barra` — 3 items de confianza (lab-tested, soporte US,
+   checkout seguro).
+8. `ol-resenas` — carrusel de 5 reseñas con estrellas y datos del perro.
+9. `ol-galeria-video` — galería UGC estilo Instagram, 5 slots de vídeo.
+10. `ol-antivillano` — tabla comparativa (OffLeash vs lanzador barato vs
+    guardería canina), 12 filas, sticky en móvil.
+11. `ol-honestidad` — FAQ acordeón (7 preguntas), ancla `#faqs`.
+12. `ol-whatsapp` (en `footer-group.json`) — botón flotante de WhatsApp.
+13. `footer-group.json` — footer verde oscuro con newsletter + botón
+    WhatsApp.
+14. Carrito — `cart_type: "drawer"` + barra de envío gratis (JS,
+    `initBarraEnvioGratis`, umbral $60) inyectada en el cart drawer.
+
+Todo subido en 5 tandas (`themeFilesUpsert`) contra el tema
+`188049719676`, todas con `userErrors: []` confirmado.
+
+Secciones antiguas en español (`ol-revelacion`, `ol-mecanismo`,
+`ol-permiso`, `ol-oferta`, `ol-cta-final`) siguen como archivos sin usar
+(no borrados, no referenciados en `templates/index.json`) — su contenido
+de prueba se redistribuyó dentro de los 3 bloques `ol-beneficio-alterno`.
+
+### Pendiente inmediato
+- **Página de producto** (`sections/ol-producto.liquid` +
+  `templates/product.ol.json`): todavía en español de la fase 5, sin
+  tocar en este rediseño EN/USD. Es el siguiente paso, según el propio
+  plan del usuario ("cuando validemos la home, aplica la misma lógica a
+  la página de producto de la segunda captura").
+- Confirmación visual del usuario sobre esta nueva portada completa
+  (no puedo verla yo mismo — ver limitación de red de siempre).
+- **Aviso importante para el usuario**: por favor no publiques este tema
+  todavía — si lo haces antes de que termine, tendré que duplicar de
+  nuevo y perderás el enlace de vista previa actual (ya ha pasado dos
+  veces). Avísame primero y lo revisamos juntos.
+
+### Vista previa (tema v2, vigente)
+`https://a8d44c-zc.myshopify.com/?preview_theme_id=188049719676`
 
 ### Pendiente / decisiones del usuario
-- Confirmar el checkpoint 1 (header + hero) antes de seguir con el resto,
-  tal y como pidió en su orden de trabajo.
+- Revisar la portada completa nueva y pedir correcciones (según su propia
+  instrucción: "hazlo todo igual que las capturas y después te hago
+  correcciones").
 - Precio final de la variante: sigue en 99,00 (mostrado en EUR hasta que
-  cambie la moneda de cuenta).
+  cambie la moneda de cuenta a USD — decisión de cuenta, Configuración →
+  General).
+- Inventario a 0 unidades — decisión pendiente del usuario.
 - Sigue pendiente la clave de OpenAI / foto real si quiere fotos generadas
-  para el hero y el resto de huecos de imagen.
+  para el hero y el resto de huecos de imagen (por ahora todos son
+  `image_picker` editables con placeholder).
+- Rellenar las 4 políticas nativas (Configuración → Políticas → plantilla).

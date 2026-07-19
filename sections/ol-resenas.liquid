@@ -1,0 +1,104 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.color_fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<section class="ol-section ol-resenas">
+  <div class="ol-container">
+    <div class="ol-resenas-cabecera ol-reveal">
+      {%- if section.settings.titulo != blank -%}<h2 class="ol-h2">{{ section.settings.titulo }}</h2>{%- endif -%}
+      <div class="ol-resenas-media">
+        <span class="ol-resenas-nota">{{ section.settings.nota_media }}</span>
+        <span class="ol-resenas-estrellas">★★★★★</span>
+        <span class="ol-resenas-conteo">{{ section.settings.numero_resenas }}</span>
+      </div>
+    </div>
+    <div class="ol-resenas-carrusel ol-reveal ol-reveal-1">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'resena' -%}
+          <div class="ol-card ol-resena-tarjeta" {{ block.shopify_attributes }}>
+            <div class="ol-resena-estrellas">★★★★★</div>
+            <p class="ol-body ol-resena-texto">"{{ block.settings.texto }}"</p>
+            <div class="ol-resena-autor">
+              {%- if block.settings.avatar != blank -%}
+                <img src="{{ block.settings.avatar | image_url: width: 80 }}" alt="{{ block.settings.nombre | escape }}" class="ol-resena-avatar" loading="lazy">
+              {%- else -%}
+                <span class="ol-resena-avatar ol-resena-avatar-inicial">{{ block.settings.nombre | slice: 0 }}</span>
+              {%- endif -%}
+              <div>
+                <p class="ol-resena-nombre">{{ block.settings.nombre }}</p>
+                <p class="ol-resena-perro">{{ block.settings.perro }}</p>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-resenas-cabecera { text-align: center; margin-bottom: 36px; }
+  #shopify-section-{{ section.id }} .ol-resenas-media { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  #shopify-section-{{ section.id }} .ol-resenas-nota { font-family: var(--ol-fuente); font-weight: 800; font-size: 22px; }
+  #shopify-section-{{ section.id }} .ol-resenas-estrellas { color: var(--ol-dorado); letter-spacing: 1px; }
+  #shopify-section-{{ section.id }} .ol-resenas-conteo { color: var(--ol-texto-suave); font-size: 14px; }
+  #shopify-section-{{ section.id }} .ol-resenas-carrusel {
+    display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch;
+  }
+  #shopify-section-{{ section.id }} .ol-resena-tarjeta { flex: 0 0 300px; scroll-snap-align: start; padding: 26px; }
+  #shopify-section-{{ section.id }} .ol-resena-estrellas { color: var(--ol-dorado); letter-spacing: 2px; margin-bottom: 12px; }
+  #shopify-section-{{ section.id }} .ol-resena-texto { font-size: 15px; margin-bottom: 20px; }
+  #shopify-section-{{ section.id }} .ol-resena-autor { display: flex; align-items: center; gap: 12px; }
+  #shopify-section-{{ section.id }} .ol-resena-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .ol-resena-avatar-inicial {
+    display: flex; align-items: center; justify-content: center; background: var(--ol-verde); color: var(--ol-crema); font-weight: 800; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .ol-resena-nombre { font-weight: 700; margin: 0; font-size: 14px; }
+  #shopify-section-{{ section.id }} .ol-resena-perro { margin: 0; font-size: 13px; color: var(--ol-texto-suave); }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Reviews carousel",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#FAF7F0" },
+    { "type": "text", "id": "titulo", "label": "Title", "default": "Our customers are obsessed" },
+    { "type": "text", "id": "nota_media", "label": "Average rating", "default": "4.7" },
+    { "type": "text", "id": "numero_resenas", "label": "Review count text", "default": "(312 reviews)" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "resena",
+      "name": "Review",
+      "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "Avatar (optional)" },
+        { "type": "textarea", "id": "texto", "label": "Review text", "default": "We ran for an hour and he'd still bounce off the walls. Now he plays for 20 minutes on his own and passes out." },
+        { "type": "text", "id": "nombre", "label": "Owner name", "default": "Sarah M." },
+        { "type": "text", "id": "perro", "label": "Dog info", "default": "Border Collie, 3yo" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews carousel",
+      "blocks": [
+        { "type": "resena", "settings": { "texto": "We ran for an hour and he'd still bounce off the walls. Now he plays for 20 minutes on his own and passes out.", "nombre": "Sarah M.", "perro": "Border Collie, 3yo" } },
+        { "type": "resena", "settings": { "texto": "I'd already wasted money on two launchers that jammed on the first slobbery ball. This one's been running 4 months, zero issues.", "nombre": "Jake R.", "perro": "Labrador, 5yo" } },
+        { "type": "resena", "settings": { "texto": "My dog is noise-sensitive and it doesn't bother her at all. Genuinely quiet.", "nombre": "Priya K.", "perro": "German Shepherd, 2yo" } },
+        { "type": "resena", "settings": { "texto": "Set it up in the backyard and my two huskies took turns for 45 minutes straight. Worth every cent.", "nombre": "Mike D.", "perro": "2x Siberian Husky" } },
+        { "type": "resena", "settings": { "texto": "Finally something that keeps up with a working dog. No more destroyed shoulder from throwing all day.", "nombre": "Lauren T.", "perro": "Malinois, 4yo" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.color_fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<section class="ol-section ol-confianza">
+  <div class="ol-container">
+    {%- if section.settings.titulo != blank -%}
+      <h2 class="ol-h2 ol-confianza-titulo ol-reveal">{{ section.settings.titulo }}</h2>
+    {%- endif -%}
+    <div class="ol-grid ol-cols-3 ol-confianza-fila">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'item' -%}
+          <div class="ol-confianza-item ol-reveal ol-reveal-{{ forloop.index | at_most: 4 }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.imagen != blank -%}
+              <img src="{{ block.settings.imagen | image_url: width: 160 }}" alt="{{ block.settings.titulo | escape }}" class="ol-confianza-logo" loading="lazy">
+            {%- else -%}
+              <span class="ol-confianza-icono">{{ block.settings.icono }}</span>
+            {%- endif -%}
+            <p class="ol-confianza-item-titulo">{{ block.settings.titulo }}</p>
+            <p class="ol-confianza-item-texto">{{ block.settings.texto }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-confianza-titulo { text-align: center; margin-bottom: 40px; font-size: 28px; }
+  #shopify-section-{{ section.id }} .ol-confianza-item { text-align: center; padding: 12px; }
+  #shopify-section-{{ section.id }} .ol-confianza-logo { max-width: 64px; max-height: 64px; margin: 0 auto 14px; display: block; }
+  #shopify-section-{{ section.id }} .ol-confianza-icono { font-size: 34px; display: block; margin-bottom: 14px; }
+  #shopify-section-{{ section.id }} .ol-confianza-item-titulo { font-weight: 800; margin-bottom: 6px; }
+  #shopify-section-{{ section.id }} .ol-confianza-item-texto { font-size: 14px; color: var(--ol-texto-suave); }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#FFFFFF" },
+    { "type": "text", "id": "titulo", "label": "Title", "default": "Trust isn't promised. It's proven." },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "image_picker", "id": "imagen", "label": "Logo (optional)" },
+        { "type": "text", "id": "icono", "label": "Icon (used if no logo)", "default": "🛡" },
+        { "type": "text", "id": "titulo", "label": "Title", "default": "Lab-Tested" },
+        { "type": "textarea", "id": "texto", "label": "Description", "default": "Independently tested for drool resistance and motor durability." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        { "type": "item", "settings": { "icono": "🛡", "titulo": "Lab-Tested", "texto": "Independently tested for drool resistance and motor durability." } },
+        { "type": "item", "settings": { "icono": "🇺🇸", "titulo": "US-Based Support", "texto": "Real humans, real answers, within 24 hours." } },
+        { "type": "item", "settings": { "icono": "🔒", "titulo": "Secure Checkout", "texto": "Encrypted payments through Shopify's trusted checkout." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

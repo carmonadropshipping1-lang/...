@@ -1,0 +1,88 @@
+{{ 'ol-styles.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.color_fondo }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<section class="ol-section ol-beneficio {% if section.settings.imagen_derecha %}ol-beneficio-invertido{% endif %}">
+  <div class="ol-container ol-beneficio-grid">
+    <div class="ol-beneficio-media ol-reveal">
+      {%- if section.settings.usar_video and section.settings.video_url != blank -%}
+        <video class="ol-beneficio-video" src="{{ section.settings.video_url }}" poster="{% if section.settings.imagen != blank %}{{ section.settings.imagen | image_url: width: 1200 }}{% endif %}" autoplay muted loop playsinline></video>
+      {%- elsif section.settings.imagen != blank -%}
+        <img src="{{ section.settings.imagen | image_url: width: 1200 }}" alt="{{ section.settings.titulo | escape }}" loading="lazy">
+      {%- else -%}
+        <div class="ol-placeholder" style="aspect-ratio:4/3;"><span>OffLeash</span></div>
+      {%- endif -%}
+    </div>
+    <div class="ol-beneficio-texto ol-reveal ol-reveal-1">
+      {%- if section.settings.badge_imagen != blank -%}
+        <img src="{{ section.settings.badge_imagen | image_url: width: 80 }}" alt="" class="ol-beneficio-badge-img" loading="lazy">
+      {%- endif -%}
+      <h3 class="ol-h3 ol-beneficio-titulo">{{ section.settings.titulo }}</h3>
+      {%- if section.settings.credencial != blank -%}
+        <p class="ol-beneficio-credencial">✔ {{ section.settings.credencial }}</p>
+      {%- endif -%}
+      {%- if section.settings.parrafo != blank -%}
+        <p class="ol-body ol-beneficio-parrafo">{{ section.settings.parrafo }}</p>
+      {%- endif -%}
+      {%- if section.settings.bullets != blank -%}
+        <ul class="ol-beneficio-lista">
+          {%- assign items = section.settings.bullets | newline_to_br | split: '<br />' -%}
+          {%- for item in items -%}
+            {%- if item != blank -%}<li>{{ item | strip }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.boton_texto != blank -%}
+        <a href="{{ section.settings.boton_enlace | default: '#' }}" class="ol-btn ol-btn-primario">{{ section.settings.boton_texto }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .ol-beneficio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  #shopify-section-{{ section.id }}.ol-beneficio-invertido .ol-beneficio-media { order: 2; }
+  #shopify-section-{{ section.id }} .ol-beneficio-media img, #shopify-section-{{ section.id }} .ol-beneficio-video { width: 100%; border-radius: 6px; display: block; aspect-ratio: 4/3; object-fit: cover; }
+  #shopify-section-{{ section.id }} .ol-beneficio-badge-img { width: 56px; margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .ol-beneficio-titulo { margin-bottom: 12px; font-size: 26px; }
+  #shopify-section-{{ section.id }} .ol-beneficio-credencial { font-size: 13px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ol-verde); margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .ol-beneficio-parrafo { margin-bottom: 18px; }
+  #shopify-section-{{ section.id }} .ol-beneficio-lista { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 8px; }
+  #shopify-section-{{ section.id }} .ol-beneficio-lista li { padding-left: 26px; position: relative; font-size: 15px; }
+  #shopify-section-{{ section.id }} .ol-beneficio-lista li::before { content: "✓"; position: absolute; left: 0; color: var(--ol-dorado); font-weight: 800; }
+  @media screen and (max-width: 899px) {
+    #shopify-section-{{ section.id }} .ol-beneficio-grid { grid-template-columns: 1fr; gap: 28px; }
+    #shopify-section-{{ section.id }}.ol-beneficio-invertido .ol-beneficio-media { order: 0; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Alternating benefit",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "color_fondo", "label": "Background color", "default": "#FFFFFF" },
+    { "type": "checkbox", "id": "imagen_derecha", "label": "Image on the right", "default": false },
+    { "type": "checkbox", "id": "usar_video", "label": "Use video instead of image", "default": false },
+    { "type": "image_picker", "id": "imagen", "label": "Image (or video poster)" },
+    { "type": "url", "id": "video_url", "label": "Video URL (mp4, if using video)" },
+    { "type": "image_picker", "id": "badge_imagen", "label": "Certification badge (optional)" },
+    { "type": "text", "id": "titulo", "label": "Heading", "default": "Drool-proof, tested for real" },
+    { "type": "text", "id": "credencial", "label": "Credential line", "default": "ENGINEERED FOR HIGH-ENERGY DOGS" },
+    { "type": "textarea", "id": "parrafo", "label": "Paragraph", "default": "Dual textured flywheels grip the soggiest tennis ball without slipping, jamming, or stalling out." },
+    { "type": "textarea", "id": "bullets", "label": "Bullets (one per line)", "default": "Grips wet, muddy, or slobbery balls\nNo jamming, no stalling\nBuilt to run all afternoon" },
+    { "type": "text", "id": "boton_texto", "label": "Button text", "default": "See how it works" },
+    { "type": "url", "id": "boton_enlace", "label": "Button link" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing (px)", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 }
+  ],
+  "presets": [ { "name": "Alternating benefit" } ]
+}
+{% endschema %}
