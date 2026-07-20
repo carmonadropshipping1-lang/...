@@ -64,12 +64,13 @@
                   "option2": {{ variant.option2 | json }},
                   "option3": {{ variant.option3 | json }},
                   "available": {{ variant.available | json }},
-                  "price": {{ variant.price | money | json }}
+                  "price": {{ variant.price | money | json }},
+                  "image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 | json }}{% else %}null{% endif %}
                 }{% unless forloop.last %},{% endunless %}
               {%- endfor -%}
             ]
           {%- endcapture -%}
-          <div class="ol-prod-opciones" id="ol-prod-opciones-{{ section.id }}" data-precio-id="ol-prod-precio-actual-{{ section.id }}" data-product-json="{{ variantes_json | strip_newlines | escape }}">
+          <div class="ol-prod-opciones" id="ol-prod-opciones-{{ section.id }}" data-precio-id="ol-prod-precio-actual-{{ section.id }}" data-imagen-id="ol-prod-imagen-actual-{{ section.id }}" data-product-json="{{ variantes_json | strip_newlines | escape }}">
             {%- for option in product.options_with_values -%}
               <div class="ol-prod-opcion">
                 <span class="ol-prod-opcion-nombre">{{ option.name }}</span>

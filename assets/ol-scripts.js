@@ -140,6 +140,8 @@
       var boton = form.querySelector('button[name="add"]');
       var precioId = contenedor.getAttribute('data-precio-id');
       var precioEl = precioId ? document.getElementById(precioId) : null;
+      var imagenId = contenedor.getAttribute('data-imagen-id');
+      var imagenEl = imagenId ? document.getElementById(imagenId) : null;
       var grupos = contenedor.querySelectorAll('.ol-prod-opcion-valores');
       var seleccion = [];
       grupos.forEach(function (grupo) {
@@ -156,6 +158,7 @@
         if (!encontrada) return;
         inputId.value = encontrada.id;
         if (precioEl && encontrada.price) precioEl.textContent = encontrada.price;
+        if (imagenEl && encontrada.image) imagenEl.src = encontrada.image;
         if (boton) {
           if (encontrada.available === false) {
             boton.setAttribute('disabled', 'disabled');
