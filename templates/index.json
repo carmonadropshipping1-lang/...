@@ -17,13 +17,12 @@
       "type": "ol-iconos",
       "blocks": {
         "i1": { "type": "icono", "settings": { "icono": "🚚", "texto": "Free shipping $60+" } },
-        "i2": { "type": "icono", "settings": { "icono": "🛡", "texto": "90-day guarantee" } },
         "i3": { "type": "icono", "settings": { "icono": "💧", "texto": "Drool-proof" } },
         "i4": { "type": "icono", "settings": { "icono": "🔋", "texto": "Hands-free play" } },
         "i5": { "type": "icono", "settings": { "icono": "🔇", "texto": "Whisper quiet" } },
         "i6": { "type": "icono", "settings": { "icono": "⭐", "texto": "4.7 rated" } }
       },
-      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6"],
+      "block_order": ["i1", "i3", "i4", "i5", "i6"],
       "settings": {}
     },
     "ol-grid-productos": {
@@ -125,11 +124,10 @@
         "f7": { "type": "fila", "settings": { "etiqueta": "Durable motor", "valor_propio": "✅", "valor_2": "❌", "valor_3": "N/A" } },
         "f8": { "type": "fila", "settings": { "etiqueta": "No training curve", "valor_propio": "✅", "valor_2": "✅", "valor_3": "✅" } },
         "f9": { "type": "fila", "settings": { "etiqueta": "One-time cost", "valor_propio": "✅", "valor_2": "✅", "valor_3": "❌ ~$700/mo" } },
-        "f10": { "type": "fila", "settings": { "etiqueta": "90-day guarantee", "valor_propio": "✅", "valor_2": "❌", "valor_3": "❌" } },
         "f11": { "type": "fila", "settings": { "etiqueta": "Keeps working dogs busy", "valor_propio": "✅", "valor_2": "⚠️ Jams quickly", "valor_3": "⚠️ Limited hours" } },
         "f12": { "type": "fila", "settings": { "etiqueta": "Honest about limits", "valor_propio": "✅", "valor_2": "❌", "valor_3": "❌" } }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"],
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f11", "f12"],
       "settings": {
         "eyebrow": "NO SPIN",
         "titulo": "Why choose OffLeash",
@@ -142,7 +140,7 @@
     "ol-honestidad": {
       "type": "ol-honestidad",
       "blocks": {
-        "q1": { "type": "pregunta", "settings": { "pregunta": "Will it jam on my dog's drool?", "respuesta": "That's the #1 question we get, because it's the reason your last launcher died. That's why we back it with the 90-Day Drool Challenge — if the motor jams even once in 90 days, you get every cent back, and you keep the balls." } },
+        "q1": { "type": "pregunta", "settings": { "pregunta": "Will it jam on my dog's drool?", "respuesta": "That's the #1 question we get, because it's the reason your last launcher died. Our dual textured flywheels are engineered to grip wet, muddy, or slobbery balls without jamming or stalling out — even after hours of nonstop fetch." } },
         "q2": { "type": "pregunta", "settings": { "pregunta": "Will it break after a few weeks?", "respuesta": "It runs on sustained-duty DC motors, not toy-grade motors. It also ships with an extended 12–24 month warranty. This isn't a fragile novelty — it's a tool you buy once." } },
         "q3": { "type": "pregunta", "settings": { "pregunta": "Will the noise scare my dog?", "respuesta": "It runs quiet — no beeping sensor or loud motor sound like some other brands. If your dog is still uneasy, our tranquility guarantee covers a full refund." } },
         "q4": { "type": "pregunta", "settings": { "pregunta": "Will my dog learn to reload it on their own?", "respuesta": "Honestly: it takes a little training, it's not instant magic. That's why every order includes the 7-Day Self-Reload Protocol, a step-by-step video guide." } },

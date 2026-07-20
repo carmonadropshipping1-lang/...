@@ -241,7 +241,7 @@
     { "type": "checkbox", "id": "mostrar_cantidad", "label": "Show quantity selector", "default": true },
     { "type": "text", "id": "boton_texto", "label": "Button text (in stock)", "default": "Add to cart" },
     { "type": "text", "id": "boton_agotado", "label": "Button text (sold out)", "default": "Sold out for now" },
-    { "type": "text", "id": "garantia_texto", "label": "Guarantee badge", "default": "🛡 90-Day Drool Challenge" },
+    { "type": "text", "id": "garantia_texto", "label": "Guarantee badge", "default": "" },
     { "type": "header", "content": "Description" },
     { "type": "textarea", "id": "intro", "label": "Intro paragraph", "default": "It's not a toy that throws the ball for you. It's the tool that finally tires your dog out for real — drool-proof, without cutting the fun short." },
     { "type": "textarea", "id": "caracteristicas", "label": "Features (one per line, format: Title::Text)", "default": "Drool-proof::Relentless grip even on the muddiest, soggiest ball.\nIndustrial durability::Sustained-duty motors, not toy-grade motors.\nWon't cut the fun short::No forced sleep-mode, no sounds that startle your dog." },
@@ -264,8 +264,8 @@
       "type": "acordeon",
       "name": "Accordion item",
       "settings": [
-        { "type": "text", "id": "titulo", "label": "Title", "default": "Shipping & Returns" },
-        { "type": "textarea", "id": "contenido", "label": "Content", "default": "Ships within 2-4 business days from our US warehouse. Covered by our 90-Day Drool Challenge — full refund if the motor ever jams." }
+        { "type": "text", "id": "titulo", "label": "Title", "default": "Shipping" },
+        { "type": "textarea", "id": "contenido", "label": "Content", "default": "Ships within 2-4 business days from our US warehouse." }
       ]
     }
   ],
@@ -275,8 +275,7 @@
       "blocks": [
         { "type": "confianza", "settings": { "icono": "🚚", "texto": "Ships in 2-4 business days" } },
         { "type": "confianza", "settings": { "icono": "🔒", "texto": "100% secure payment" } },
-        { "type": "confianza", "settings": { "icono": "↩️", "texto": "90-Day Drool Challenge — full refund" } },
-        { "type": "acordeon", "settings": { "titulo": "Shipping & Returns", "contenido": "Ships within 2-4 business days from our US warehouse. Covered by our 90-Day Drool Challenge — full refund if the motor ever jams." } },
+        { "type": "acordeon", "settings": { "titulo": "Shipping", "contenido": "Ships within 2-4 business days from our US warehouse." } },
         { "type": "acordeon", "settings": { "titulo": "What's in the box", "contenido": "1 OffLeash launcher, 6 anti-drool balls, power adapter + battery, 7-Day Self-Reload Protocol video, and the \"Exhaustion Trap\" guide." } },
         { "type": "acordeon", "settings": { "titulo": "Warranty", "contenido": "12–24 month extended warranty on the motor. Sustained-duty DC motor, not a toy-grade motor." } }
       ]

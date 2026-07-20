@@ -15,10 +15,9 @@
       "type": "ol-announcement",
       "blocks": {
         "m1": { "type": "mensaje", "settings": { "texto": "Free shipping over $60" } },
-        "m2": { "type": "mensaje", "settings": { "texto": "Built for dogs that never get tired" } },
-        "m3": { "type": "mensaje", "settings": { "texto": "90-Day Drool Challenge Guarantee" } }
+        "m2": { "type": "mensaje", "settings": { "texto": "Built for dogs that never get tired" } }
       },
-      "block_order": ["m1", "m2", "m3"],
+      "block_order": ["m1", "m2"],
       "settings": {}
     },
     "header": {
