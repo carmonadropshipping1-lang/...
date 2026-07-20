@@ -516,3 +516,95 @@ UNPUBLISHED antes y después de subir).
   para el hero y el resto de huecos de imagen (por ahora todos son
   `image_picker` editables con placeholder).
 - Rellenar las 4 políticas nativas (Configuración → Políticas → plantilla).
+
+## Limpieza de contenido (sin tocar diseño/layout)
+
+El usuario pidió una limpieza puntual antes del rediseño: quitar toda
+mención a "90 días de garantía", quitar la marca "Dyal Speen", quitar
+packs/bundles (solo vendemos 1 producto), y arreglar el cambio de imagen
+por variante de color. Commits pequeños por bloque en
+`claude/tienda-shopify-v2-k75pjm`.
+
+### Tercer evento: el tema v2 también se publicó
+Al empezar esta limpieza, "OffLeash US v2 (Claude draft)"
+(`188049719676`) apareció en rol MAIN (publicado por el usuario, tercera
+vez). Además, los temas antiguos ("OffLeash (Claude)" y "OffLeash US
+(Claude draft)") ya no aparecen en la lista de temas — probablemente
+borrados por el usuario desde su panel. Mismo procedimiento de siempre:
+duplicado a un tema nuevo sin publicar.
+
+**Tema de trabajo actual**: **"OffLeash US (cleanup draft)"**,
+id `gid://shopify/OnlineStoreTheme/188079702396`, rol UNPUBLISHED
+(confirmado). Toda la limpieza de esta fase está subida aquí.
+
+### 1) "90 días de garantía" — eliminado
+Grep case-insensitive de "90 d"/"90-day"/"90 day" en todo el repo.
+Archivos tocados: `sections/ol-honestidad.liquid`,
+`sections/header-group.json` (mensaje de la marquesina),
+`sections/ol-antivillano.liquid` (fila de la tabla comparativa),
+`sections/ol-iconos.liquid` (icono de la tira de beneficios),
+`sections/ol-producto.liquid` (badge de garantía, fila de confianza,
+acordeón "Shipping & Returns" → "Shipping"), `templates/index.json` y
+`templates/product.ol.json` (instancias correspondientes). También se
+actualizó la `descriptionHtml` del producto real vía Admin API (no es un
+archivo del repo, pero mencionaba el mismo texto). Las secciones
+antiguas en español que también lo mencionaban (`ol-mecanismo.liquid`,
+`ol-oferta.liquid`, `ol-cta-final.liquid`) se eliminaron por completo
+(ver punto 3).
+
+### 2) Marca "Dyal Speen" — no existía literalmente, se trató como "DrySpin™"
+No hay ninguna coincidencia de "dyal" en el repo. La coincidencia más
+cercana (fonéticamente) es **"DrySpin™"**, el nombre del mecanismo
+inventado durante la construcción original (rueda de inercia anti-babas).
+Se sustituyó cada aparición por el placeholder **`[NOMBRE MARCA]`** en:
+`sections/ol-hero.liquid`, `sections/ol-lockup.liquid`,
+`sections/ol-producto.liquid`, `templates/index.json`,
+`templates/product.ol.json`. No se inventó un nombre nuevo.
+
+### 3) Packs/bundles — eliminados
+Se borró `sections/ol-grid-productos.liquid` (mostraba 3 tarjetas: un
+"Bundle + Anti-Drool Balls", el lanzador individual real, y un
+"Accessory Pack" — ninguno de los dos primeros es un producto real).
+Se quitó su instancia de `templates/index.json` y se re-apuntó el botón
+del hero (antes anclaba a `#ol-shop`, la sección eliminada) directamente
+a `/products/offleash-automatic-ball-launcher`. También se eliminaron
+por completo las 5 secciones legacy en español que ya no se usaban en
+ningún template (`ol-revelacion`, `ol-mecanismo`, `ol-permiso`,
+`ol-oferta` — el "stack de valor"/bundle original —, `ol-cta-final`).
+El botón de compra real (`{% form 'product', product %}` en
+`ol-producto.liquid`) siempre estuvo atado al producto/variante actual,
+sin selector de packs.
+
+**Limitación técnica descubierta**: la mutación `themeFilesDelete` está
+bloqueada por completo en este conector (categoría "destructive"), sin
+importar si el tema es borrador o está en vivo. Los archivos legacy se
+borraron del repositorio de Git, pero **siguen existiendo como archivos
+huérfanos dentro del tema de Shopify** (ya no están referenciados por
+ningún template, así que no se ven ni se pueden añadir por accidente,
+pero ocupan espacio en el editor de código). Si el usuario quiere
+borrarlos físicamente del tema, tiene que hacerlo desde Tienda online →
+Temas → Editar código → borrar archivo, manualmente.
+
+### 4) Imagen por variante de color — corregido en el código
+El selector de variantes personalizado (`initSelectorVariantes` en
+`assets/ol-scripts.js`) nunca capturaba ni aplicaba la imagen de la
+variante — solo actualizaba precio/id/disponibilidad. Se añadió:
+- `variant.featured_image` al JSON que lee el selector
+  (`sections/ol-producto.liquid`).
+- Un puntero `data-imagen-id` a la imagen principal del producto.
+- En el JS, si la variante encontrada tiene imagen, se actualiza el
+  `src` de la imagen principal al seleccionarla.
+
+**Estado real de las variantes (revisado vía Admin API)**: el producto
+tiene una opción "Colors" con dos valores — "OffLeash™ - Lime Green" y
+"OffLeash™ - Forest Green". **Solo "Forest Green" tiene una imagen
+asignada** en el admin (un SVG de "No forced sleep mode..."). **"Lime
+Green" no tiene ninguna imagen asignada** — no se puede mostrar lo que no
+existe. El código ya está listo para ambas; falta que el usuario suba y
+asigne una foto real a la variante "Lime Green" (y, si quiere, reemplace
+la imagen de "Forest Green" por una foto real del producto en vez del
+SVG de icono que tiene ahora).
+
+### Vista previa (tema de limpieza, vigente)
+`https://a8d44c-zc.myshopify.com/?preview_theme_id=188079702396`
+`https://a8d44c-zc.myshopify.com/products/offleash-automatic-ball-launcher?preview_theme_id=188079702396`
