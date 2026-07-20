@@ -15,7 +15,7 @@
     "lockup": {
       "type": "ol-lockup",
       "settings": {
-        "nombre": "DrySpin™",
+        "nombre": "[NOMBRE MARCA]",
         "claim": "Not luck. Engineering."
       }
     },
@@ -27,7 +27,7 @@
         "credencial": "ENGINEERED FOR HIGH-ENERGY DOGS",
         "parrafo": "Dual textured flywheels grip the soggiest tennis ball without slipping, jamming, or stalling out — even after hours of nonstop fetch.",
         "bullets": "Grips wet, muddy, or slobbery balls\nNo jamming, no stalling\nBuilt to run all afternoon",
-        "boton_texto": "See how DrySpin™ works",
+        "boton_texto": "See how [NOMBRE MARCA] works",
         "boton_enlace": "#faqs"
       }
     },
