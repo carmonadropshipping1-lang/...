@@ -10,7 +10,7 @@
         "subtitulo": "[NOMBRE MARCA] is the first drool-proof ball launcher engineered for dogs that never get tired.",
         "linea_certificacion": "🛡 Engineered technology — lab-tested for real backyard abuse.",
         "boton_texto": "Meet [NOMBRE MARCA]",
-        "boton_enlace": "#ol-shop"
+        "boton_enlace": "/products/offleash-automatic-ball-launcher"
       }
     },
     "ol-iconos": {
@@ -24,16 +24,6 @@
       },
       "block_order": ["i1", "i3", "i4", "i5", "i6"],
       "settings": {}
-    },
-    "ol-grid-productos": {
-      "type": "ol-grid-productos",
-      "blocks": {
-        "b1": { "type": "tarjeta", "settings": { "badge": "Sale", "nombre": "OffLeash Bundle + Anti-Drool Balls", "precio": "$109.99", "precio_anterior": "$138.98", "enlace": "/products/offleash-automatic-ball-launcher" } },
-        "b2": { "type": "tarjeta", "settings": { "nombre": "OffLeash Launcher", "precio": "$89.99", "enlace": "/products/offleash-automatic-ball-launcher" } },
-        "b3": { "type": "tarjeta", "settings": { "nombre": "Accessory Pack (balls + battery)", "precio": "$34.99", "enlace": "/products/offleash-automatic-ball-launcher" } }
-      },
-      "block_order": ["b1", "b2", "b3"],
-      "settings": { "titulo": "The OffLeash essentials" }
     },
     "ol-lockup": {
       "type": "ol-lockup",
@@ -156,5 +146,5 @@
       }
     }
   },
-  "order": ["ol-hero", "ol-iconos", "ol-grid-productos", "ol-lockup", "ol-beneficio-1", "ol-beneficio-2", "ol-beneficio-3", "ol-confianza-barra", "ol-resenas", "ol-galeria-video", "ol-antivillano", "ol-honestidad"]
+  "order": ["ol-hero", "ol-iconos", "ol-lockup", "ol-beneficio-1", "ol-beneficio-2", "ol-beneficio-3", "ol-confianza-barra", "ol-resenas", "ol-galeria-video", "ol-antivillano", "ol-honestidad"]
 }
